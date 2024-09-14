@@ -12,3 +12,9 @@ Develop a system that allows employees to book and manage office resources such 
 - **Database:** SQL
 - **Frontend:** React (JavaScript)
 - **Build Tools:** Maven for Spring Boot, npm/yarn for React
+
+## Contributors
+Jordan Lewis - UI
+Debora Madison - UI
+Jack Madison - API
+Makalyn Kline - DB
