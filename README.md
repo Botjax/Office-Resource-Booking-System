@@ -13,8 +13,8 @@ Develop a system that allows employees to book and manage office resources such 
 - **Frontend:** Vue.js (JavaScript)
 - **Build Tools:** Maven for Spring Boot, npm/yarn for Vue.js
 ### Versions
-Node v20.17.0
-Vue v5.0.8
+- Node v20.17.0
+- Vue v5.0.8
 
 # Contributors
 - **Jordan Lewis**: UI Development
