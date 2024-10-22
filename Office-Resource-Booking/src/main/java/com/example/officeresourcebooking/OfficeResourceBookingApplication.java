@@ -1,4 +1,4 @@
-package com.capstone.officeresourcebooking;
+package com.example.officeresourcebooking;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
