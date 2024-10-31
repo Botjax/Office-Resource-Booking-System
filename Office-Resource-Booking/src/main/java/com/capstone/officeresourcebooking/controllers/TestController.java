@@ -1,4 +1,4 @@
-package com.capstone.officeresourcebooking.controller;
+package com.capstone.officeresourcebooking.controllers;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
