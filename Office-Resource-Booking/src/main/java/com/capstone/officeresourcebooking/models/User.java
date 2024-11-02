@@ -11,7 +11,7 @@ public class User {
     @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")  // Match with the primary key column in the database
-    private Long id;
+    private int id;
 
     @Column(name = "username", nullable = false)
     private String name;
