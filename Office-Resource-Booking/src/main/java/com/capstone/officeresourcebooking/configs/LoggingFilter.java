@@ -1,4 +1,4 @@
-package com.capstone.officeresourcebooking.Config;
+package com.capstone.officeresourcebooking.configs;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -12,27 +12,24 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class RequestLoggingFilter implements Filter {
+public class LoggingFilter implements Filter {
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        if ("OPTIONS".equalsIgnoreCase(httpRequest.getMethod())) {
+            System.out.println("Received OPTIONS request for: " + httpRequest.getRequestURI());
+        }
+        chain.doFilter(request, response);
+    }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
-
-        String clientIp = httpRequest.getRemoteAddr();
-        int clientPort = httpRequest.getRemotePort();
-
-        System.out.println("Incoming request from IP: " + clientIp + ", Port: " + clientPort);
-
-        chain.doFilter(request, response);
-    }
-
-    @Override
     public void destroy() {
+
     }
 }
-

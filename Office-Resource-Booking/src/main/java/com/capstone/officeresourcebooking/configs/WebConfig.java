@@ -1,4 +1,4 @@
-package com.capstone.officeresourcebooking.Config;
+package com.capstone.officeresourcebooking.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

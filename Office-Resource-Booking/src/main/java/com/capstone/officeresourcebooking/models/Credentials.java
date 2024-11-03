@@ -1,6 +1,6 @@
 package com.capstone.officeresourcebooking.models;
 
-public class Login {
+public class Credentials {
     public String email;
     public String password;
 }
