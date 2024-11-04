@@ -1,19 +1,23 @@
 <template>
   <div id="app">
-    <component :is="currentComponent" />
-    <button v-if="currentComponent === 'Login'" @click="login">Login</button>
+    <component :is="currentComponent" @login-success="handleLoginSuccess"   @navigate="navigate" />
   </div>
 </template>
 
 <script>
 import Login from './components/Login.vue';
 import Dashboard from './components/Dashboard.vue';
+import ForgotPassword from './components/forgotPassword.vue'
+import CreateAccount from "@/components/createAccount.vue";
+
 
 export default {
   name: 'App',
   components: {
     Login,
     Dashboard,
+    ForgotPassword,
+    CreateAccount,
   },
   data() {
     return {
@@ -21,9 +25,11 @@ export default {
     };
   },
   methods: {
-    login() {
-      // Logic to simulate login and navigate to Dashboard
-      this.currentComponent = 'Dashboard'; // Switch to Dashboard
+    handleLoginSuccess() {
+      this.currentComponent = 'Dashboard'; // Switch to Dashboard when login is successful
+    },
+    navigate(component) {
+      this.currentComponent = component;
     },
   },
 };
