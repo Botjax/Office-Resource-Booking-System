@@ -16,20 +16,27 @@ public class Controller {
         this.userService = userService;
     }
 
-    @GetMapping("/helloworld")
+    @GetMapping("/helloworld") // Test mapping
     public String helloworld() {
         return "Hello World";
     }
 
-    @PostMapping("/user/create")
+    @PostMapping("/user/create") // Create user
+    @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
     public ResponseEntity<User> createUser(@RequestBody Credentials credentials) {
         User savedUser = userService.saveUser(credentials);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
-    @PostMapping("/user/login")
+    @PostMapping("/user/login") // User login
     @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
-    public boolean loginUser(@RequestBody Credentials credentials) {
+    public String loginUser(@RequestBody Credentials credentials) {
         return userService.verifyLogin(credentials.email, credentials.password);
+    }
+
+    @GetMapping("/security/mak/encrypt/{password}") // Encrypt a password, useful for the DBA to insert an admin user into the database with an encrypted password
+    @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
+    public String encryptPassword(@PathVariable String password) {
+        return userService.encryptPassword(password);
     }
 }

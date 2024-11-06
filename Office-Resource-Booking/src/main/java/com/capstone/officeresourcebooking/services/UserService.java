@@ -1,39 +1,51 @@
 package com.capstone.officeresourcebooking.services;
 
 import com.capstone.officeresourcebooking.models.Credentials;
+import com.capstone.officeresourcebooking.models.SessionData;
 import com.capstone.officeresourcebooking.models.User;
 import com.capstone.officeresourcebooking.repositories.UserRepository;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
-import java.util.List;
-import java.util.Optional;
+import java.time.Instant;
+import java.util.*;
 
 @Service
 public class UserService {
-
     private final UserRepository userRepository;
+    private static HashMap<String, SessionData> sessions = new HashMap<>();
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
+    @Scheduled(cron = "0 */10 * * * *") // Run once every 10 minutes
+    public void deleteExpiredTokens() {
+        Instant tenMinutesAgo = Instant.now().minusSeconds(10 * 60); // 10 minutes in seconds
+        sessions.entrySet().removeIf(entry -> entry.getValue().getCreatedAt().toInstant().isBefore(tenMinutesAgo));
     }
 
-    public boolean verifyLogin(String email, String password) {
+    public String verifyLogin(String email, String password) {
         Optional<User> userOpt = userRepository.findByEmail(email);
         if (userOpt.isPresent()) {
             User user = userOpt.get();
-            return user.getPasswordHash().equals(password); // Ensure password comparison is secure in a real application
+            if (BCrypt.checkpw(password, user.getPasswordHash())) {
+                String uuid = UUID.randomUUID().toString();
+                sessions.put(uuid, new SessionData(email));
+                return uuid;
+            }
         }
-        return false; // User not found or password incorrect
+        return ""; // User not found or password incorrect
     }
 
     public User saveUser(Credentials credentials) {
-        User user = new User(credentials.email, credentials.password);
+        String passwordHash = encryptPassword(credentials.password); // Hashing the password before sending it into the database for security
+        User user = new User(credentials.email, passwordHash);
         return userRepository.save(user);
     }
+
+    public String encryptPassword(String password) {
+        return BCrypt.hashpw(password, BCrypt.gensalt(10));
+    }
 }
-
-

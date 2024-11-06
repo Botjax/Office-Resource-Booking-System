@@ -40,6 +40,4 @@ public class User {
         EMPLOYEE,
         ADMIN
     }
-
 }
-
