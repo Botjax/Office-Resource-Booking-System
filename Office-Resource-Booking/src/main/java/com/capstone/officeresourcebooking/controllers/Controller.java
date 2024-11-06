@@ -34,10 +34,9 @@ public class Controller {
         return userService.verifyLogin(credentials.email, credentials.password);
     }
 
-    @PostMapping("/security/mak/encrypt/{password}") // Encrypt a password, useful for the DBA to insert an admin user into the database with an encrypted password
+    @GetMapping("/security/mak/encrypt/{password}") // Encrypt a password, useful for the DBA to insert an admin user into the database with an encrypted password
     @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
     public String encryptPassword(@PathVariable String password) {
         return userService.encryptPassword(password);
     }
 }
-

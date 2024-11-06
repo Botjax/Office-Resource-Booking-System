@@ -41,7 +41,6 @@ public class UserService {
 
     public User saveUser(Credentials credentials) {
         String passwordHash = encryptPassword(credentials.password); // Hashing the password before sending it into the database for security
-        System.out.println(passwordHash);
         User user = new User(credentials.email, passwordHash);
         return userRepository.save(user);
     }
@@ -50,4 +49,3 @@ public class UserService {
         return BCrypt.hashpw(password, BCrypt.gensalt(10));
     }
 }
-

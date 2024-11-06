@@ -35,4 +35,3 @@ public class RequestLoggingFilter implements Filter {
     public void destroy() {
     }
 }
-
