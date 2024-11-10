@@ -2,6 +2,7 @@
   <div class="login">
     <div class="square"></div>
     <div class="login-box">
+      <img alt src="../assets/logo.png">
       <h1>Login</h1>
       <form @submit.prevent="handleLogin" class="login-form">
         <div class="form-group">
@@ -79,10 +80,18 @@ export default {
 
 .login-box{
   display: flex;
-  min-width: 50%;
-  height: 100%;
+  min-width: 50vw;
+  height: 100vh;
   flex-direction: column;
   justify-content: center;
+}
+
+h1{
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 .login-form {
@@ -96,6 +105,7 @@ export default {
 
 .links {
   margin-top: 20px;
+  font-size: 14px;
 }
 
 a {
@@ -124,11 +134,20 @@ a {
 }
 
 .square{
-    min-width: 50%;
+    min-width: 50vw;
     height: 200vh;
     position: relative;
-    background: linear-gradient(45deg,#bbdefb,#d1c4e9,#29b6f6,#2c3e50);
+    background: linear-gradient(45deg,#bbdefb, #3480ef,#29b6f6,#2c3e50);
     background-size: cover;
+}
+
+img{
+  width: 20vw;
+  height: auto;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 </style>
