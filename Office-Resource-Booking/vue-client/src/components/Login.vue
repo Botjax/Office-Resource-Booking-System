@@ -75,7 +75,6 @@ export default {
 </script>
 
 <style>
-/* Styling similar to previous setup */
 * {
   margin: 0;
   padding: 0;
