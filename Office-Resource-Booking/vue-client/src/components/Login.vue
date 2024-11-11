@@ -31,6 +31,8 @@ export default {
       email: '',
       password: '',
       errorMessage: '',
+      loginStatus: null,
+      sessionID: null,
     };
   },
   methods: {
@@ -42,16 +44,23 @@ export default {
         }, {
           headers: {
             'Content-Type': 'application/json',
-
           }
         });
+        const{loginStatus, sessionID} = response.data;
 
-        if (response.data) {
-          this.errorMessage = '';
+        console.log(response.data);
+
+        if (loginStatus === 'SUCCESS') {
+          this.loginStatus = 'Success';
+          this.sessionID = sessionID;
           this.$emit('login-success');
-
-        } else {
+        } else if (loginStatus === 'INVALID_CREDENTIALS') {
           this.errorMessage = 'Invalid email or password';
+        }
+        else if (loginStatus === 'FAILURE'){
+          this.sessionID = null;
+          this.loginStatus = 'Failure';
+          this.errorMessage = 'Login Failed. Please Try Again';
         }
       } catch (error) {
         this.errorMessage = 'An error occurred. Please try again.';
