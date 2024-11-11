@@ -1,9 +1,6 @@
 package com.capstone.officeresourcebooking.services;
 
-import com.capstone.officeresourcebooking.models.Credentials;
-import com.capstone.officeresourcebooking.models.LoginResponse;
-import com.capstone.officeresourcebooking.models.SessionData;
-import com.capstone.officeresourcebooking.models.User;
+import com.capstone.officeresourcebooking.models.*;
 import com.capstone.officeresourcebooking.repositories.UserRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -41,6 +38,25 @@ public class UserService {
             return new LoginResponse(LoginResponse.LoginStatus.INVALID_CREDENTIALS, "");
         }
         return new LoginResponse(LoginResponse.LoginStatus.FAILURE, "");
+    }
+
+    public CreateUserResponse createUser(Credentials credentials) {
+        if (!CreateUserResponse.isValidEmail(credentials.email)) { // Check if the email is a valid email address
+            return new CreateUserResponse(CreateUserResponse.CreateStatus.INVALID_EMAIL);
+        }
+
+        Optional<User> userOpt = userRepository.findByEmail(credentials.email);
+        if (userOpt.isPresent()) { // Check if email is taken
+            return new CreateUserResponse(CreateUserResponse.CreateStatus.EMAIL_TAKEN);
+        }
+
+        try { // Try and save the user
+            saveUser(credentials);
+            return new CreateUserResponse(CreateUserResponse.CreateStatus.SUCCESS);
+        } catch (Exception e) {
+            // setup error logging at some point
+        }
+        return new CreateUserResponse(CreateUserResponse.CreateStatus.FAILURE);
     }
 
     public User saveUser(Credentials credentials) {

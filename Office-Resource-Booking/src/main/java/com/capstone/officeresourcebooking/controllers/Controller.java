@@ -1,5 +1,6 @@
 package com.capstone.officeresourcebooking.controllers;
 
+import com.capstone.officeresourcebooking.models.CreateUserResponse;
 import com.capstone.officeresourcebooking.models.Credentials;
 import com.capstone.officeresourcebooking.models.LoginResponse;
 import com.capstone.officeresourcebooking.models.User;
@@ -24,9 +25,8 @@ public class Controller {
 
     @PostMapping("/user/create") // Create user
     @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
-    public ResponseEntity<User> createUser(@RequestBody Credentials credentials) {
-        User savedUser = userService.saveUser(credentials);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
+    public CreateUserResponse createUser(@RequestBody Credentials credentials) {
+        return userService.createUser(credentials);
     }
 
     @PostMapping("/user/login") // User login
