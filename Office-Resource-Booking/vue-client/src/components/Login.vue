@@ -10,12 +10,12 @@
         <form @submit.prevent="handleLogin" class="login-form">
           <div class="input-box">
             <div class="input-field">
-              <label for="email">Email:</label>
               <input class="input" type="text" id="email" v-model="email" required />
+              <label for="email">Email:</label>
             </div>
             <div class="input-field">
-              <label for="password">Password:</label>
               <input class="input" type="password" id="password" v-model="password" required />
+              <label for="password">Password:</label>
             </div>
             <div class="input-field">
               <button class="submission-button" type="submit"><span class="submission-text">Login</span></button>
@@ -110,7 +110,9 @@ header{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 8px;
+  margin-left: 8px;
+  margin-top: 8px;
+  margin-bottom: 16px;
   font-weight: 700;
   font-size: 30px;
 }
@@ -195,12 +197,11 @@ img{
 }
 
 /* Move label up and shrink on focus or when input has value */
-.input-field input:focus ~ label,
-.input-field input:valid ~ label,
-.input-field:hover label {
+.input-field .input:focus ~ label,
+.input-field .input:hover ~ label,
+.input-field .input:valid ~ label {
   top: -10px;
   font-size: 13px;
-  color: #5d5076;
 }
 
 /* Additional style when focused to add highlight */
