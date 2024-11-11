@@ -1,6 +1,7 @@
 package com.capstone.officeresourcebooking.services;
 
 import com.capstone.officeresourcebooking.models.Credentials;
+import com.capstone.officeresourcebooking.models.LoginResponse;
 import com.capstone.officeresourcebooking.models.SessionData;
 import com.capstone.officeresourcebooking.models.User;
 import com.capstone.officeresourcebooking.repositories.UserRepository;
@@ -26,17 +27,20 @@ public class UserService {
         sessions.entrySet().removeIf(entry -> entry.getValue().getCreatedAt().toInstant().isBefore(tenMinutesAgo));
     }
 
-    public String verifyLogin(String email, String password) {
+    public LoginResponse verifyLogin(String email, String password) {
         Optional<User> userOpt = userRepository.findByEmail(email);
         if (userOpt.isPresent()) {
             User user = userOpt.get();
             if (BCrypt.checkpw(password, user.getPasswordHash())) {
                 String uuid = UUID.randomUUID().toString();
                 sessions.put(uuid, new SessionData(email));
-                return uuid;
+                return new LoginResponse(LoginResponse.LoginStatus.SUCCESS, uuid);
             }
         }
-        return ""; // User not found or password incorrect
+        else {
+            return new LoginResponse(LoginResponse.LoginStatus.INVALID_CREDENTIALS, "");
+        }
+        return new LoginResponse(LoginResponse.LoginStatus.FAILURE, "");
     }
 
     public User saveUser(Credentials credentials) {

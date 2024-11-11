@@ -1,6 +1,7 @@
 package com.capstone.officeresourcebooking.controllers;
 
 import com.capstone.officeresourcebooking.models.Credentials;
+import com.capstone.officeresourcebooking.models.LoginResponse;
 import com.capstone.officeresourcebooking.models.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class Controller {
 
     @PostMapping("/user/login") // User login
     @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
-    public String loginUser(@RequestBody Credentials credentials) {
+    public LoginResponse loginUser(@RequestBody Credentials credentials) {
         return userService.verifyLogin(credentials.email, credentials.password);
     }
 
