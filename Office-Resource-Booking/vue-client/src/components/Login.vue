@@ -48,8 +48,6 @@ export default {
         });
         const{loginStatus, sessionID} = response.data;
 
-        console.log(response.data);
-
         if (loginStatus === 'SUCCESS') {
           this.loginStatus = 'Success';
           this.sessionID = sessionID;
