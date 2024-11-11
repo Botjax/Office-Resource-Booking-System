@@ -2,26 +2,32 @@
   <div class="login">
     <div class="square"></div>
     <div class="login-box">
-      <img alt src="../assets/logo.png">
-      <h1>Login</h1>
-      <form @submit.prevent="handleLogin" class="login-form">
-        <div class="form-group">
-          <label for="email">Email:</label>
-          <input type="text" id="email" v-model="email" required />
-        </div>
-        <div class="form-group">
-          <label for="password">Password:</label>
-          <input type="password" id="password" v-model="password" required />
-        </div>
-        <button type="submit">Login</button>
-      </form>
+      <div class="wrapper">
+        <img alt src="../assets/logo.png">
+        <header>Login</header>
+        <form @submit.prevent="handleLogin" class="login-form">
+          <div class="input-box">
+            <div class="input-field">
+              <label for="email">Email:</label>
+              <input class="input" type="text" id="email" v-model="email" required />
+            </div>
+            <div class="input-field">
+              <label for="password">Password:</label>
+              <input class="input" type="password" id="password" v-model="password" required />
+            </div>
+            <div class="input-field">
+              <button class="submission-button" type="submit"><span class="submission-text">Login</span></button>
+            </div>
+          </div>
+        </form>
 
-    <p v-if="errorMessage">{{ errorMessage }}</p>
-    <div class="links">
-      <a href="#" @click.prevent="$emit('navigate', 'ForgotPassword')">Forgot Password?</a> |
-      <a href="#" @click.prevent="$emit('navigate', 'CreateAccount')">Create an Account</a>
+        <p v-if="errorMessage">{{ errorMessage }}</p>
+        <div class="links">
+          <a href="#" @click.prevent="$emit('navigate', 'ForgotPassword')">Forgot Password?</a> |
+          <a href="#" @click.prevent="$emit('navigate', 'CreateAccount')">Create an Account</a>
+        </div>
+      </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -66,8 +72,19 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 /* Styling similar to previous setup */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
 .login {
   display: flex;
   flex-direction: row;
@@ -78,7 +95,7 @@ export default {
   color: #000000;
 }
 
-.login-box{
+.login-box {
   display: flex;
   min-width: 50vw;
   height: 100vh;
@@ -86,23 +103,21 @@ export default {
   justify-content: center;
 }
 
-h1{
+header{
   text-align: left;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-bottom: 20px;
+  margin: 20px;
+  font-weight: 700;
+  font-size: 30px;
 }
-
 .login-form {
-  background: rgba(186, 206, 250, 0.86);
-  padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
+  position: relative;
 }
-
 .links {
   margin-top: 20px;
   font-size: 14px;
@@ -126,28 +141,115 @@ a {
   --soft-blue: #bbdefb;
   --soft-yellow: #fff9c4;
   --white: whitesmoke;
-}
-
-.html{
+  padding: 0;
   margin: 0;
   border: 0;
 }
-
 .square{
-    min-width: 50vw;
-    height: 200vh;
-    position: relative;
-    background: linear-gradient(45deg,#bbdefb, #3480ef,#29b6f6,#2c3e50);
-    background-size: cover;
+  min-width: 50vw;
+  height: 100vh;
+  position: relative;
+  background: linear-gradient(45deg,#bbdefb, #3480ef,#29b6f6,#2c3e50);
+  background-size: cover;
 }
 
 img{
   width: 20vw;
   height: auto;
-  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
+.input-field{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 0 10px 0 10px;
+}
+.input {
+  height: 45px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  outline: none;
+  margin-bottom: 20px;
+  color: #40414a;
+}
 
+.input-box .input-field label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  pointer-events: none;
+  transition: 0.5s ease; /* Smooth transition for the effect */
+}
+
+/* Move label up and shrink on focus or when input has value */
+.input-field input:focus ~ label,
+.input-field input:valid ~ label,
+.input-field:hover label {
+  top: -10px;
+  font-size: 13px;
+  color: #5d5076;
+}
+
+/* Additional style when focused to add highlight */
+.input-field .input:focus,
+.input-field .input:valid {
+  border-bottom: 1px solid #743ae1;
+}
+.submission-button {
+  align-items: center;
+  /*#bbdefb, #3480ef,#29b6f6,#2c3e50*/
+  background-image: linear-gradient(144deg,#bbdefb, #3480ef 50%,#29b6f6);
+  border: 0;
+  border-radius: 8px;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  display: flex;
+  font-family: Phantomsans, sans-serif;
+  font-size: 20px;
+  justify-content: center;
+  line-height: 1em;
+  max-width: 50vh;
+  min-width: 140px;
+  padding: 3px;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.submission-button:active,
+.submission-button:hover {
+  outline: 0;
+  border: none;
+}
+
+
+.submission-button span {
+  background-color: rgb(5, 6, 45);
+  padding: 16px 24px;
+  border-radius: 6px;
+  width: 100%;
+  height: 100%;
+  transition: 300ms;
+}
+
+.submission-button:hover span {
+  background: none;
+}
+
+@media (min-width: 768px) {
+  .submission-button {
+    font-size: 24px;
+    min-width: 196px;
+  }
+}
+.wrapper{
+  padding: 0 20% 0 20%;
+}
 </style>
