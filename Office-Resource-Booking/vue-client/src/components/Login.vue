@@ -1,6 +1,8 @@
 <template>
   <div class="login">
-    <div class="square"></div>
+    <div class="square">
+      <header>Resource Booking <b> Made Effortless</b></header>
+    </div>
     <div class="login-box">
       <div class="wrapper">
         <img alt src="../assets/logo.png">
@@ -108,7 +110,7 @@ header{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 20px;
+  margin: 8px;
   font-weight: 700;
   font-size: 30px;
 }
@@ -152,11 +154,18 @@ a {
   background: linear-gradient(45deg,#bbdefb, #3480ef,#29b6f6,#2c3e50);
   background-size: cover;
 }
+.square header{
+  font-size: 50px;
+  color: white;
+  margin-top: 45%;
+  margin-left: 22%;
+}
 
 img{
   width: 20vw;
   height: auto;
   display: flex;
+  margin-left: 8px;
   flex-direction: column;
   justify-content: center;
 }
@@ -222,6 +231,7 @@ img{
   touch-action: manipulation;
   white-space: nowrap;
   cursor: pointer;
+  height: 40px;
 }
 .submission-button:active,
 .submission-button:hover {
@@ -229,14 +239,14 @@ img{
   border: none;
 }
 
-
 .submission-button span {
   background-color: rgb(5, 6, 45);
-  padding: 16px 24px;
+  padding: 5px 10px;
   border-radius: 6px;
   width: 100%;
-  height: 100%;
+  height:100%;
   transition: 300ms;
+  font-size: 20px;
 }
 
 .submission-button:hover span {
