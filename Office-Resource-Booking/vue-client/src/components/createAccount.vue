@@ -151,15 +151,6 @@ a {
   text-align: center;
   color: #000000;
 }
-
-.createAccount-input-wrapper {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  padding: 0 10px;
-  margin-bottom: 20px;
-}
-
 .createAccount-input {
   height: 45px;
   width: 100%;
@@ -167,7 +158,16 @@ a {
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   outline: none;
+  margin-bottom: 20px;
   color: #40414a;
+}
+
+.createAccount-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 0 10px;
+  margin-bottom: 20px;
 }
 
 /* Label floating effect */
