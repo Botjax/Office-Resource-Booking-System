@@ -44,6 +44,7 @@ export default {
       password: '',
       confirmPassword: '',
       message: '',
+      createStatus: null,
     };
   },
   methods: {
@@ -63,11 +64,18 @@ export default {
             'Content-Type': 'application/json',
           }
         });
+        const createStatus = response.data;
 
-        if (response.data) {
+        if (createStatus === 'SUCCESS') {
           this.message = 'Account Created Successfully';
-        } else {
-          this.message = 'Error creating account';
+        } else if (createStatus === 'EMAIL_TAKEN') {
+          this.message = 'The email provided is already taken.';
+        }
+        else if (createStatus === 'INVALID_EMAIL'){
+          this.message = 'Invalid Email. Please provide a valid email.';
+        }
+        else if (createStatus === 'FAILURE'){
+          this.message = 'Failure Creating Account';
         }
       } catch (error) {
         this.message = 'An error occurred. Please try again.';
