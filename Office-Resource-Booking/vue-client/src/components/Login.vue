@@ -18,7 +18,9 @@
               <label for="password">Password:</label>
             </div>
             <div class="input-field">
-              <button class="submission-button" type="submit"><span class="submission-text">Login</span></button>
+              <button class="submission-button" type="submit">
+                <span class="submission-text">Login</span>
+              </button>
             </div>
           </div>
         </form>
@@ -86,6 +88,8 @@ html,body {
   height: 100%;
   overflow: hidden;
 }
+</style>
+<style scoped>
 .login {
   display: flex;
   flex-direction: row;
@@ -210,7 +214,7 @@ img{
 }
 .submission-button {
   align-items: center;
-  /*#bbdefb, #3480ef,#29b6f6,#2c3e50*/
+  /* colors: #bbdefb, #3480ef,#29b6f6,#2c3e50*/
   background-image: linear-gradient(144deg,#bbdefb, #3480ef 50%,#29b6f6);
   border: 0;
   border-radius: 8px;
@@ -232,12 +236,9 @@ img{
   white-space: nowrap;
   cursor: pointer;
   height: 40px;
+  margin-left: 22px;
 }
-.submission-button:active,
-.submission-button:hover {
-  outline: 0;
-  border: none;
-}
+
 
 .submission-button span {
   background-color: rgb(5, 6, 45);

@@ -26,7 +26,9 @@
         </form>
 
         <p v-if="message">{{ message }}</p>
+        <div class="links">
         <a href="#" @click.prevent="$emit('navigate', 'Login')">Back to Login</a>
+        </div>
       </div>
     </div>
   </div>
@@ -77,24 +79,15 @@ export default {
 };
 </script>
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-html,body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden;
-}
+<style scoped>
 .createAccount-box {
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   min-width: 50vw;
   height: 100vh;
-  flex-direction: column;
-  justify-content: center;
 }
 header{
   text-align: left;
@@ -112,6 +105,10 @@ a {
   text-decoration: underline;
   cursor: pointer;
 }
+.links {
+  margin-top: 20px;
+  font-size: 14px;
+}
 
 :root{
   --blue: #29b6f6;
@@ -128,6 +125,14 @@ a {
   padding: 0;
   margin: 0;
   border: 0;
+}
+img{
+  width: 20vw;
+  height: auto;
+  display: flex;
+  margin-left: 8px;
+  flex-direction: column;
+  justify-content: center;
 }
 .square{
   min-width: 50vw;
@@ -179,11 +184,13 @@ a {
   transition: 0.3s ease;
 }
 
-.createAccount-input-wrapper input:focus ~ label,
-.createAccount-input-wrapper input:not(:placeholder-shown) ~ label {
+
+/* Move label up and shrink on focus or when input has value */
+.createAccount-input-wrapper .createAccount-input:focus ~ label,
+.createAccount-input-wrapper .createAccount-input:hover ~ label,
+.createAccount-input-wrapper .createAccount-input:valid ~ label {
   top: -10px;
   font-size: 13px;
-  color: #5d5076;
 }
 
 /* Additional style when input is focused */
@@ -215,7 +222,10 @@ a {
   white-space: nowrap;
   cursor: pointer;
   height: 40px;
+  margin: 0 auto;
+
 }
+
 .submission-button:active,
 .submission-button:hover {
   outline: 0;
