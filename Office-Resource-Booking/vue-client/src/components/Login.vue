@@ -139,6 +139,7 @@ a {
   cursor: pointer;
 }
 
+
 :root{
   --blue: #29b6f6;
   --green: #9ccc65;
@@ -270,3 +271,4 @@ img{
   padding: 0 20% 0 20%;
 }
 </style>
+
