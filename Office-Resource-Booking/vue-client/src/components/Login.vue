@@ -98,6 +98,7 @@ html,body {
   height: 100vh;
   text-align: center;
   color: #000000;
+
 }
 
 .login-box {
