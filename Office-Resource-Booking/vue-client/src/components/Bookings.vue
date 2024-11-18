@@ -48,6 +48,7 @@
 
 <script>
 export default {
+  name: 'BookingsP',
   data() {
     return {
       // Booking form data
