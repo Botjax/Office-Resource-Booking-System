@@ -58,16 +58,16 @@ export default {
             'Content-Type': 'application/json',
           }
         });
-        const{loginStatus, sessionID} = response.data;
+        const{status, sessionId} = response.data;
 
-        if (loginStatus === 'SUCCESS') {
+        if (status === 'SUCCESS') {
           this.loginStatus = 'Success';
-          this.sessionID = sessionID;
+          this.sessionID = sessionId;
           this.$emit('login-success');
-        } else if (loginStatus === 'INVALID_CREDENTIALS') {
+        } else if (status === 'INVALID_CREDENTIALS') {
           this.errorMessage = 'Invalid email or password';
         }
-        else if (loginStatus === 'FAILURE'){
+        else if (status === 'FAILURE'){
           this.sessionID = null;
           this.loginStatus = 'Failure';
           this.errorMessage = 'Login Failed. Please Try Again';
