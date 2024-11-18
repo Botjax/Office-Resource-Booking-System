@@ -13,6 +13,6 @@ export default {
 <style>
 .dashboard {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 50px; /* Adjust margin as needed */
 }
 </style>
