@@ -56,17 +56,6 @@ export default {
         }, {
           headers: {
             'Content-Type': 'application/json',
-
-          }
-        });
-
-        if (response.data) {
-          this.errorMessage = '';
-          this.$emit('login-success');
-
-        } else {
-          this.errorMessage = 'Invalid email or password';
-        }
           }
         });
         const{status, sessionId} = response.data;
