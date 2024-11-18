@@ -8,7 +8,7 @@
 import Login from './components/Login.vue';
 import Dashboard from './components/Dashboard.vue';
 import ForgotPassword from './components/forgotPassword.vue'
-import CreateAccount from "@/components/createAccount.vue";
+import CreateAccount from "./components/createAccount.vue";
 
 
 export default {
