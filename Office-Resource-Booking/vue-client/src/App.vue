@@ -1,15 +1,15 @@
 <template>
   <div id="app">
-    <component :is="currentComponent" @login-success="handleLoginSuccess"   @navigate="navigate" />
+    <component :is="currentComponent" @login-success="handleLoginSuccess" @navigate="navigate" />
   </div>
 </template>
 
 <script>
 import Login from './components/Login.vue';
 import Dashboard from './components/Dashboard.vue';
-import ForgotPassword from './components/forgotPassword.vue'
-import CreateAccount from "@/components/createAccount.vue";
-
+import ForgotPassword from './components/forgotPassword.vue';
+import CreateAccount from "./components/createAccount.vue";
+import Bookings from "./components/Bookings.vue";
 
 export default {
   name: 'App',
@@ -18,6 +18,7 @@ export default {
     Dashboard,
     ForgotPassword,
     CreateAccount,
+    Bookings,
   },
   data() {
     return {
@@ -42,6 +43,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  padding: 0;
+  margin: 0;
+  border: 0;
 }
 </style>
