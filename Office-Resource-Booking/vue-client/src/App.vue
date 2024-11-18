@@ -8,8 +8,8 @@
 import Login from './components/Login.vue';
 import Dashboard from './components/Dashboard.vue';
 import ForgotPassword from './components/forgotPassword.vue';
-import CreateAccount from "@/components/createAccount.vue";
-import Bookings from "@/components/Bookings.vue";
+import CreateAccount from "./components/createAccount.vue";
+import Bookings from "./components/Bookings.vue";
 
 export default {
   name: 'App',
@@ -30,7 +30,7 @@ export default {
       this.currentComponent = 'Dashboard'; // Switch to Dashboard when login is successful
     },
     navigate(component) {
-      this.currentComponent = component; // Switch to the specified component
+      this.currentComponent = component;
     },
   },
 };

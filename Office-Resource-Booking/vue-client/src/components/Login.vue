@@ -56,6 +56,17 @@ export default {
         }, {
           headers: {
             'Content-Type': 'application/json',
+
+          }
+        });
+
+        if (response.data) {
+          this.errorMessage = '';
+          this.$emit('login-success');
+
+        } else {
+          this.errorMessage = 'Invalid email or password';
+        }
           }
         });
         const{status, sessionId} = response.data;
@@ -81,6 +92,7 @@ export default {
 };
 </script>
 
+
 <style>
 * {
   margin: 0;
@@ -93,6 +105,8 @@ html,body {
   height: 100%;
   overflow: hidden;
 }
+</style>
+<style scoped>
 .login {
   display: flex;
   flex-direction: row;
@@ -101,6 +115,7 @@ html,body {
   height: 100vh;
   text-align: center;
   color: #000000;
+
 }
 
 .login-box {
@@ -138,7 +153,6 @@ a {
   text-decoration: underline;
   cursor: pointer;
 }
-
 
 :root{
   --blue: #29b6f6;
@@ -218,7 +232,7 @@ img{
 }
 .submission-button {
   align-items: center;
-  /*#bbdefb, #3480ef,#29b6f6,#2c3e50*/
+  /* colors: #bbdefb, #3480ef,#29b6f6,#2c3e50*/
   background-image: linear-gradient(144deg,#bbdefb, #3480ef 50%,#29b6f6);
   border: 0;
   border-radius: 8px;
@@ -240,12 +254,9 @@ img{
   white-space: nowrap;
   cursor: pointer;
   height: 40px;
+  margin-left: 22px;
 }
-.submission-button:active,
-.submission-button:hover {
-  outline: 0;
-  border: none;
-}
+
 
 .submission-button span {
   background-color: rgb(5, 6, 45);
