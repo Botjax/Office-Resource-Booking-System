@@ -58,7 +58,9 @@ export default {
         roomBox.innerHTML = `
       <h3 class="room-box-text">${room.name}</h3>
       <div class="time-field">
-        <label class="time-label">Date</label>
+        <div class="date-text-box">
+            <label class="time-label">Date</label>
+        </div>
         <div class="time-input-wrapper">
           <input type="date" class="time-input" />
         </div>
@@ -208,6 +210,11 @@ export default {
   display: flex;
   max-height: 30px;
 }
+
+.room-box .time-field .time-input-wrapper .time-input[type="date"] {
+  min-width: 290px;
+}
+
 .room-box .time-field {
   margin: 0.5rem 0;
   display: flex;
@@ -215,14 +222,31 @@ export default {
   align-items: center;
   justify-content: center;
 }
+
 .room-box .time-label {
   font-size: 0.9rem;
   color: #757575;
   margin-bottom: 0.3rem;
-  justify-content: center;
-  align-items: flex-end;
-  display: flex;
+  justify-content: flex-start;
+  text-align: left;
+  width: 100%;
+  display: block;
 }
+
+.room-box .date-text-box {
+  font-size: 0.9rem;
+  color: #757575;
+  margin-bottom: 0.3rem;
+  justify-content: flex-start;
+  text-align: left;
+  width: 100%;
+  display: block;
+}
+
+.room-box .date-text-box .time-label {
+  margin-left: 20px;
+}
+
 .room-box .time-input-wrapper {
   display: flex;
   align-items: center;
