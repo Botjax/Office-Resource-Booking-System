@@ -77,8 +77,10 @@ export default {
         </div>
       </div>
       </div>
-      <button class="check-avail-button">Check Availability</button>
-      <button class="reserve-room-button">Reserve Room</button>
+      <div class="box-buttons">
+        <button class="check-avail-button">Check Availability</button>
+        <button class="reserve-room-button">Reserve Room</button>
+      </div>
 
     `;
 
@@ -102,13 +104,20 @@ export default {
     border-radius: 8px;
     max-width: 392px;
     box-shadow: 0 2px 4px rgb(195, 194, 194);
+    justify-content: center;
+    align-items: center;
   }
+
 .room-boxes{
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
   margin-left: 5vw;
   margin-right: 5vw;
+  align-items: center;
+  max-height: 85vh;
+  overflow-y: auto;
+  margin-bottom: 10vh;
 }
 .room-box .reserve-room-button {
   padding: 0.5rem 1rem;
@@ -179,21 +188,40 @@ export default {
 .room-box .time-wrapper{
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
 }
+
+.room-box .box-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.room-box .box-buttons button {
+  font-size: small;
+}
+
 .room-box .time-field .time-input-wrapper{
   align-items: center;
   justify-content:center;
+  display: flex;
+  max-height: 30px;
 }
 .room-box .time-field {
   margin: 0.5rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 .room-box .time-label {
   font-size: 0.9rem;
   color: #757575;
   margin-bottom: 0.3rem;
+  justify-content: center;
+  align-items: flex-end;
+  display: flex;
 }
 .room-box .time-input-wrapper {
   display: flex;
