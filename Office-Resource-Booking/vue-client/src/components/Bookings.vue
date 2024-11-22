@@ -98,10 +98,10 @@ export default {
 <style>
 .room-box {
     border: 1px solid #ffffff;
-    padding: 16px;
+    padding: 11px;
     border-radius: 8px;
+    max-width: 392px;
     box-shadow: 0 2px 4px rgb(195, 194, 194);
-    justify-content: space-between;
   }
 .room-boxes{
   display: grid;
@@ -113,7 +113,6 @@ export default {
 .room-box .reserve-room-button {
   padding: 0.5rem 1rem;
   font-size: 1rem;
-  box-shadow: 0 4px 6px rgb(232, 227, 227);
   background-color: #bbdefb;
   color: #000000;
   border: none;
@@ -147,7 +146,6 @@ export default {
 .room-box .check-avail-button {
   padding: 0.5rem 1rem;
   font-size: 1rem;
-  box-shadow: 0 4px 6px rgb(232, 227, 227);
   background-color: #bbdefb;
   color: #000000;
   border: none;
@@ -178,15 +176,19 @@ export default {
     font-size: 1rem;
   }
 }
-.time-wrapper{
+.room-box .time-wrapper{
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
+}
+.room-box .time-field .time-input-wrapper{
+  align-items: center;
+  justify-content:center;
 }
 .room-box .time-field {
   margin: 0.5rem 0;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
 }
 .room-box .time-label {
   font-size: 0.9rem;
@@ -200,7 +202,6 @@ export default {
   border: 1px solid #e0e0e0;
   border-radius: 25px;
   padding: 0.5rem 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .room-box .time-input {
   border: none;
@@ -351,7 +352,6 @@ p{
   padding: 0.8rem 2rem;
   font-size: 1rem;
   background-color: #bbdefb;
-  box-shadow:0 4px 6px rgb(232, 227, 227);
   color: #000000;
   border: none;
   border-radius: 25px;
