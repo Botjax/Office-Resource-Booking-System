@@ -1,26 +1,26 @@
 <template>
   <div class="bookings">
-    <div class="sideBar">
+    <div class="side-bar">
       <img alt src="../assets/logo.png">
       <p style="text-transform:uppercase">Menu</p>
       <div class="dashboard-item">
       <img class="dashboard-icon" alt src="../assets/dash.svg">
-      <span class="dashboard-text">Dashboard</span>
+      <button class="dashboard-text" @click="$emit('navigate','Dashboard')">Dashboard</button>
       </div>
       <div class="book-item">
         <img class="book-icon" alt src="../assets/book.svg">
-        <span class="book-text">Bookings</span>
+        <button class="book-text" @click="$emit('navigate','Bookings')">Bookings</button>
       </div>
       <div class="calendar-item">
         <img class="calendar-icon" alt src="../assets/calendar.svg">
-        <span class="calendar-text">Calendar</span>
+        <button class="calendar-text" @click="$emit('navigate','Calendar')">Calendar</button>
       </div>
     </div>
     <div class="bookings-wrapper">
       <div class="bookings-header">
         <header class="bookings-text">Bookings</header>
         <div class="logout-button">
-          <button @click="logout">Logout</button>
+          <button @click="$emit('navigate','Login')">Logout</button>
         </div>
       </div>
       <div class="room-boxes">
@@ -109,7 +109,6 @@ export default {
     justify-content: center;
     align-items: center;
   }
-
 .room-boxes{
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -278,13 +277,21 @@ export default {
 }
 </style>
 <style scoped>
-.sideBar {
+.side-bar {
     min-width: 20vw;
     height: 100vh;
     position: relative;
     background: #bbdefb; /*#3480ef,#29b6f6,#2c3e50*/
     background-size: cover;
   }
+.side-bar button:hover{
+  color: #29b6f6;
+  transition-duration: 0.3s;
+}
+.side-bar button{
+  all: unset;
+  cursor: pointer;
+}
 :root {
     --blue: #29b6f6;
     --green: #9ccc65;
@@ -387,7 +394,6 @@ p{
   display: flex;
   margin-bottom: 5vh;
 }
-
 .logout-button{
   margin-left: auto;
 }
