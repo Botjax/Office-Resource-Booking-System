@@ -22,7 +22,8 @@ export default {
   },
   data() {
     return {
-      currentComponent: 'Login', // Default to the Login component
+       // currentComponent: 'Login', //Default to the Login component
+      currentComponent: 'Bookings',
     };
   },
   methods: {

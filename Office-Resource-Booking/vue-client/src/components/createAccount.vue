@@ -173,7 +173,6 @@ img{
   margin-bottom: 20px;
   color: #40414a;
 }
-
 .createAccount-input-wrapper {
   display: flex;
   flex-direction: column;
@@ -210,7 +209,7 @@ img{
   /*#bbdefb, #3480ef,#29b6f6,#2c3e50*/
   background-image: linear-gradient(144deg,#bbdefb, #3480ef 50%,#29b6f6);
   border: 0;
-  border-radius: 8px;
+  border-radius: 25px;
   box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
   box-sizing: border-box;
   color: #FFFFFF;
@@ -242,7 +241,7 @@ img{
 .submission-button span {
   background-color: rgb(5, 6, 45);
   padding: 5px 10px;
-  border-radius: 6px;
+  border-radius: 25px;
   width: 100%;
   height:100%;
   transition: 300ms;
