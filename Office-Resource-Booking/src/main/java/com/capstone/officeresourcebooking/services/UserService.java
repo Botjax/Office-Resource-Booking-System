@@ -65,6 +65,10 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public boolean verifyUser(String token) {
+        return sessions.containsKey(token);
+    }
+
     public String encryptPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt(10));
     }
