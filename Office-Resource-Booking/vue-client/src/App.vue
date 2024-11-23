@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { ref, provide } from 'vue';
 import Login from './components/Login.vue';
 import Dashboard from './components/Dashboard.vue';
 import ForgotPassword from './components/forgotPassword.vue';
@@ -20,10 +21,30 @@ export default {
     CreateAccount,
     Bookings,
   },
+  setup() {
+    // Define sessionID as a reactive ref
+    const sessionID = ref(null);
+
+    // Define a method to update sessionID
+    const setSessionID = (value) => {
+      console.log('Setting sessionID to:', value); // Debugging log
+      sessionID.value = value; // Update the reactive ref's value
+    };
+
+    // Provide sessionID and setSessionID globally
+    provide('sessionID', sessionID);
+    provide('setSessionID', setSessionID);
+
+    // Debugging log
+    console.log('Session ID in setup:', sessionID);
+
+    return {
+      sessionID,
+    };
+  },
   data() {
     return {
-       // currentComponent: 'Login', //Default to the Login component
-      currentComponent: 'Bookings',
+      currentComponent: 'Login', // Default to the Login component
     };
   },
   methods: {
@@ -36,6 +57,7 @@ export default {
   },
 };
 </script>
+
 
 <style>
 #app {

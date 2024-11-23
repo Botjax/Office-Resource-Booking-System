@@ -32,72 +32,93 @@
 </template>
 
 <script>
+import { inject } from 'vue';
+import axios from 'axios';
+
 export default {
   name: 'BookingsP',
-  mounted() {
-    //API data
-    const rooms = [
-      { id: 1, name: "Meeting Room 1" },
-      { id: 2, name: "Meeting Room 2" },
-      { id: 3, name: "Hub Space" },
-      { id: 4, name: "Quiet Room 1" },
-      { id: 5, name: "Quiet Room 2" },
-      { id: 6, name: "Conference Room" },
-    ];
+  setup() {
+    const sessionID = inject('sessionID'); // Inject the sessionID ref
 
-    // Function to render rooms dynamically
-    const renderRooms = (roomList) => {
-      const room_boxes = document.querySelector('.room-boxes');
+    // Debugging log
+    console.log('Injected sessionID in Bookings:', sessionID.value);
 
-      roomList.forEach((room, index) => {
-        // Create a room box
-        const roomBox = document.createElement('div');
-        roomBox.className = 'room-box';
-
-        // Add room content
-        roomBox.innerHTML = `
-      <h3 class="room-box-text">${room.name}</h3>
-      <div class="time-field">
-        <div class="date-text-box">
-            <label class="time-label">Date</label>
-        </div>
-        <div class="time-input-wrapper">
-          <input type="date" class="time-input" />
-        </div>
-      </div>
-      <div class="time-wrapper">
-      <div class="time-field">
-        <label class="time-label">Start Time</label>
-        <div class="time-input-wrapper">
-          <input type="time" class="time-input" />
-        </div>
-      </div>
-      <div class="time-field">
-        <label class="time-label">End Time</label>
-        <div class="time-input-wrapper">
-          <input type="time" class="time-input" />
-        </div>
-      </div>
-      </div>
-      <div class="box-buttons">
-        <button class="check-avail-button">Check Availability</button>
-        <button class="reserve-room-button">Reserve Room</button>
-      </div>
-
-    `;
-
-        // Add the box to the dashboard
-        // Odd-indexed rooms go to the left (column 1), even-indexed to the right (column 2)
-        roomBox.style.gridColumn = index % 2 === 0 ? '1' : '2';
-        room_boxes.appendChild(roomBox);
-      });
+    return {
+      sessionID,
     };
+  },
+  async mounted() {
+    try {
+      // Fetch rooms from the API
+      const response = await axios.post('http://25.59.250.215:9490/api/bookings/rooms/list', {
+        token: this.sessionID
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
 
-    // Render the rooms
-    renderRooms(rooms);
-  }
+      const rooms = response.data; // Assuming API returns an array of rooms
+
+      // Debugging log to ensure rooms are fetched
+      console.log('Fetched Rooms:', rooms);
+
+      // Function to render rooms dynamically
+      const renderRooms = (roomList) => {
+        const room_boxes = document.querySelector('.room-boxes');
+
+        roomList.forEach((room, index) => {
+          // Create a room box
+          const roomBox = document.createElement('div');
+          roomBox.className = 'room-box';
+
+          // Add room content
+          roomBox.innerHTML = `
+            <h3 class="room-box-text">${room.name}</h3>
+            <div class="time-field">
+              <div class="date-text-box">
+                  <label class="time-label">Date</label>
+              </div>
+              <div class="time-input-wrapper">
+                <input type="date" class="time-input" />
+              </div>
+            </div>
+            <div class="time-wrapper">
+              <div class="time-field">
+                <label class="time-label">Start Time</label>
+                <div class="time-input-wrapper">
+                  <input type="time" class="time-input" />
+                </div>
+              </div>
+              <div class="time-field">
+                <label class="time-label">End Time</label>
+                <div class="time-input-wrapper">
+                  <input type="time" class="time-input" />
+                </div>
+              </div>
+            </div>
+            <div class="box-buttons">
+              <button class="check-avail-button">Check Availability</button>
+              <button class="reserve-room-button">Reserve Room</button>
+            </div>
+          `;
+
+          // Add the box to the dashboard
+          // Odd-indexed rooms go to the left (column 1), even-indexed to the right (column 2)
+          roomBox.style.gridColumn = index % 2 === 0 ? '1' : '2';
+          room_boxes.appendChild(roomBox);
+        });
+      };
+
+      // Render the rooms dynamically
+      renderRooms(rooms);
+    } catch (error) {
+      console.error('Error fetching rooms:', error);
+    }
+  },
 };
 </script>
+
 
 <style>
 .room-box {
@@ -440,6 +461,4 @@ p{
     font-size: 1rem;
   }
 }
-
-
 </style>

@@ -35,16 +35,22 @@
 
 <script>
 import axios from 'axios';
+import { inject } from 'vue';
 
 export default {
   name: "LoginP",
+  setup() {
+    const setSessionID = inject('setSessionID'); // Inject the global sessionID updater
+    return {
+      setSessionID,
+    };
+  },
   data() {
     return {
       email: '',
       password: '',
       errorMessage: '',
       loginStatus: null,
-      sessionID: null,
     };
   },
   methods: {
@@ -58,17 +64,17 @@ export default {
             'Content-Type': 'application/json',
           }
         });
-        const{status, sessionId} = response.data;
+
+        const { status, sessionId } = response.data;
 
         if (status === 'SUCCESS') {
           this.loginStatus = 'Success';
-          this.sessionID = sessionId;
-          this.$emit('login-success');
+          console.log('Login successful, sessionID:', sessionId); // Debugging log
+          this.setSessionID(sessionId); // Update global sessionID
+          this.$emit('login-success'); // Notify parent of success
         } else if (status === 'INVALID_CREDENTIALS') {
           this.errorMessage = 'Invalid email or password';
-        }
-        else if (status === 'FAILURE'){
-          this.sessionID = null;
+        } else if (status === 'FAILURE') {
           this.loginStatus = 'Failure';
           this.errorMessage = 'Login Failed. Please Try Again';
         }
@@ -79,6 +85,8 @@ export default {
     },
   },
 };
+
+
 </script>
 
 
