@@ -9,8 +9,9 @@ import { ref, provide } from 'vue';
 import Login from './components/Login.vue';
 import Dashboard from './components/Dashboard.vue';
 import ForgotPassword from './components/forgotPassword.vue';
-import CreateAccount from "./components/createAccount.vue";
-import Bookings from "./components/Bookings.vue";
+import CreateAccount from './components/createAccount.vue';
+import Bookings from './components/Bookings.vue';
+import Calendar from './components/Calendar.vue';
 
 export default {
   name: 'App',
@@ -20,6 +21,7 @@ export default {
     ForgotPassword,
     CreateAccount,
     Bookings,
+    Calendar,
   },
   setup() {
     // Define sessionID as a reactive ref
@@ -44,7 +46,8 @@ export default {
   },
   data() {
     return {
-      currentComponent: 'Login', // Default to the Login component
+      // currentComponent: 'Login', // Default to the Login component
+      currentComponent: 'Dashboard',
     };
   },
   methods: {

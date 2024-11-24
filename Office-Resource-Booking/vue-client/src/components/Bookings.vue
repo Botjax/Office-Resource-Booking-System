@@ -408,7 +408,6 @@ p{
   border-bottom: 1.5px solid #e8e3e3;
   background-color: #ffffff;
   color: #000000;
-  cursor: pointer;
   transition: background-color 0.3s ease;
   max-height: 10vh;
   min-width: 80vw;
@@ -417,6 +416,7 @@ p{
 }
 .logout-button{
   margin-left: auto;
+  cursor: pointer;
 }
 
 .bookings-text {

@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard">
+  <div class="calendar">
     <div class="side-bar">
       <img alt src="../assets/logo.png">
       <p style="text-transform:uppercase">Menu</p>
@@ -14,11 +14,11 @@
       <div class="calendar-item">
         <img class="calendar-icon" alt src="../assets/calendar.svg">
         <button class="calendar-text" @click="$emit('navigate','Calendar')">Calendar</button>
-       </div>
+      </div>
     </div>
-    <div class="dashboard-wrapper">
-      <div class="dashboard-header">
-        <header class="dashboard-text">Dashboard</header>
+    <div class="calendar-wrapper">
+      <div class="calendar-header">
+        <header class="calendar-header-text">Calendar</header>
         <div class="logout-button">
           <button @click="$emit('navigate','Login')">Logout</button>
         </div>
@@ -29,12 +29,12 @@
 <script>
 import { inject } from 'vue';
 export default {
-  name:'DashboardP',
+  name:'Calendar',
   setup() {
     const sessionID = inject('sessionID'); // Inject the sessionID ref
 
     // Debugging log
-    console.log('Injected sessionID in Dashboard:', sessionID.value);
+    console.log('Injected sessionID in Calendar:', sessionID.value);
 
     return {
       sessionID,
@@ -90,14 +90,14 @@ p{
   display: block;
   font-size: small;
 }
-.dashboard-item {
+.side-bar .dashboard-item {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   margin-left: 9%;
   margin-top: 5%;
 }
-.dashboard-icon{
+.side-bar .dashboard-icon{
   width: 2vw;
   height: auto;
   display: block;
@@ -126,6 +126,12 @@ p{
   color: #000000;
   margin: 0;
 }
+.calendar {
+  min-width: 35vh;
+  max-height: 100vh;
+  position: relative;
+  display: flex;
+}
 .calendar-item{
   display: flex;
   align-items: center;
@@ -144,13 +150,7 @@ p{
   color: #000000;
   margin: 0;
 }
-.dashboard {
-  min-width: 35vh;
-  max-height: 100vh;
-  position: relative;
-  display: flex;
-}
-.dashboard-header {
+.calendar-header {
   padding: 0.5rem 1rem;
   font-size: 1rem;
   border-bottom: 1.5px solid #e8e3e3;
@@ -166,14 +166,14 @@ p{
   margin-left: auto;
   cursor: pointer;
 }
-.dashboard-text {
+.calendar-header-text {
   font-size: 1.5rem;
   color: #000000;
   font-weight: bold;
   margin-top: 1.5vh;
   margin-left: 2vw;
 }
-.dashboard-header button {
+.calendar-header button {
   padding: 0.8rem 2rem;
   font-size: 1rem;
   background-color: #bbdefb;
@@ -185,22 +185,22 @@ p{
   margin-right: 2vw;
   margin-top: 1.5vh;
 }
-.dashboard-header button:hover {
+.calendar-header button:hover {
   background-color: #29b6f6;
 }
 @media (max-width: 768px) {
-  .dashboard-header {
+  .calendar-header {
     flex-direction: column;
     text-align: center;
     padding: 1rem;
   }
 
-  .dashboard-text {
+  .calendar-header-text {
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
   }
 
-  .dashboard-header button {
+  .calendar-header button {
     width: 100%;
     font-size: 1rem;
   }
