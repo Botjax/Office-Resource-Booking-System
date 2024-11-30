@@ -15,6 +15,9 @@ public interface ResourceRepository extends JpaRepository<Resource, Long> {
     @Query(value = "SELECT * FROM resources WHERE resource_name = :resourceName", nativeQuery = true)
     Optional<Resource> findByResourceName(@Param("resourceName") String resourceName);
 
+    @Query("SELECT r.id FROM Resource r WHERE r.resourceName = :resourceName")
+    Optional<Integer> findResourceIdByName(@Param("resourceName") String resourceName);
+
     @Query(value = "SELECT * FROM resources WHERE is_available = 1", nativeQuery = true)
     List<Resource> findAvailableResources();
 

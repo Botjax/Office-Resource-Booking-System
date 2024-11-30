@@ -11,10 +11,12 @@ import java.util.List;
 public class Controller {
     private final UserService userService;
     private final ResourceService resourceService;
+    private final ReservationService reservationService;
 
-    public Controller(UserService userService, ResourceService resourceService) {
+    public Controller(UserService userService, ResourceService resourceService, ReservationService reservationService) {
         this.userService = userService;
         this.resourceService = resourceService;
+        this.reservationService = reservationService;
     }
 
     @GetMapping("/helloworld") // Test mapping
@@ -40,9 +42,25 @@ public class Controller {
         if (userService.verifyUser(tokenID.getToken())) {
             return resourceService.getAllResources();
         }
-        else {
-            return null;
+        return null;
+    }
+
+    @PostMapping("bookings/rooms/check-availability")
+    @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
+    public BookingResponse checkAvailability(@RequestBody BookingRequest bookingRequest) {
+        if (userService.verifyUser(bookingRequest.getSecurityToken().getToken())) {
+            return reservationService.checkAvailability(bookingRequest);
         }
+        return null;
+    }
+
+    @PostMapping("bookings/rooms/make-reservation")
+    @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
+    public BookingResponse makeReservation(@RequestBody BookingRequest bookingRequest) {
+        if (userService.verifyUser(bookingRequest.getSecurityToken().getToken())) {
+            return reservationService.makeReservation(bookingRequest, resourceService.findResourceByName(bookingRequest.getRoomName()), userService.getUserIdByToken(bookingRequest.getSecurityToken().getToken()));
+        }
+        return null;
     }
 
     @GetMapping("/security/mak/encrypt/{password}") // Encrypt a password, useful for the DBA to insert an admin user into the database with an encrypted password

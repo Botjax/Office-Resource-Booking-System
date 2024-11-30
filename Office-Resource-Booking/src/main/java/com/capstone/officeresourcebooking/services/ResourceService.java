@@ -1,6 +1,5 @@
 package com.capstone.officeresourcebooking.services;
 
-import com.capstone.officeresourcebooking.models.Resource;
 import com.capstone.officeresourcebooking.models.Room;
 import com.capstone.officeresourcebooking.repositories.ResourceRepository;
 import org.springframework.stereotype.Service;
@@ -26,5 +25,9 @@ public class ResourceService {
             rooms.add(room);
         }
         return rooms;
+    }
+
+    public int findResourceByName(String name) {
+        return resourceRepository.findResourceIdByName(name).get();
     }
 }
