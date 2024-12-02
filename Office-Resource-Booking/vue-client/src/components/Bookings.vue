@@ -87,21 +87,143 @@ export default {
               <div class="time-field">
                 <label class="time-label">Start Time</label>
                 <div class="time-input-wrapper">
-                  <input type="time" class="time-input" />
+                  <input type="time" class="start-time-input" />
                 </div>
               </div>
               <div class="time-field">
                 <label class="time-label">End Time</label>
                 <div class="time-input-wrapper">
-                  <input type="time" class="time-input" />
+                  <input type="time" class="end-time-input" />
                 </div>
               </div>
             </div>
             <div class="box-buttons">
-              <button class="check-avail-button">Check Availability</button>
-              <button class="reserve-room-button">Reserve Room</button>
+              <button class="check-avail-button" data-room-name="${room.name}">Check Availability</button>
+              <button class="reserve-room-button" data-room-name="${room.name}">Reserve Room</button>
             </div>
           `;
+
+          roomBox.querySelectorAll('.check-avail-button').forEach(button => {
+            button.addEventListener('click', async (e) => {
+              try {
+                // Get the room name from the button's data attribute
+                const roomName = e.target.getAttribute('data-room-name');
+
+                // Find the parent room box for this button
+                const roomBox = e.target.closest('.room-box');
+
+                // Extract input values for start time, end time, and date
+                const dateInput = roomBox.querySelector('input[type="date"]').value;
+                const startTimeInput = roomBox.querySelector('input[class="start-time-input"]').value;
+                const endTimeInput = roomBox.querySelector('input[class="end-time-input"]').value;
+
+                // Ensure all inputs are provided
+                if (!dateInput || !startTimeInput || !endTimeInput) {
+                  alert('Please provide date, start time, and end time.');
+                  return;
+                }
+
+                // Combine date and time inputs into ISO 8601 format
+                const startTime = new Date(`${dateInput}T${startTimeInput}`).toISOString();
+                const endTime = new Date(`${dateInput}T${endTimeInput}`).toISOString();
+
+                // Retrieve the security token from sessionID
+                const securityToken = this.sessionID;
+
+                // Debugging logs
+                console.log('Sending POST request with:');
+                console.log({ securityToken, roomName, startTime, endTime });
+
+                // Send POST request to check availability
+                const response = await axios.post('http://25.59.250.215:9490/api/bookings/rooms/check-availability', {
+                  securityToken,
+                  roomName,
+                  startTime,
+                  endTime,
+                }, {
+                  headers: {
+                    'Content-Type': 'application/json',
+                  }
+                });
+
+                const {responseStatus} = response.data;
+                console.log(responseStatus);
+
+                // Handle the response for check availability
+                if (responseStatus === 'AVAILABLE') {
+                  alert(`Room Available`);
+                } else if (responseStatus === 'UNAVAILABLE') {
+                  alert(`Room Unavailable.`);
+                }
+                else if (responseStatus === 'ERROR'){
+                  alert('Server Error');
+                }
+              } catch (error) {
+                console.error('Error checking availability.', error);
+                alert('An error occurred while checking availability.');
+              }
+            });
+          });
+          roomBox.querySelectorAll('.reserve-room-button').forEach(button => {
+            button.addEventListener('click', async (e) => {
+              try {
+                // Get the room name from the button's data attribute
+                const roomName = e.target.getAttribute('data-room-name');
+
+                // Find the parent room box for this button
+                const roomBox = e.target.closest('.room-box');
+
+                // Extract input values for start time, end time, and date
+                const dateInput = roomBox.querySelector('input[type="date"]').value;
+                const startTimeInput = roomBox.querySelector('input[class="start-time-input"]').value;
+                const endTimeInput = roomBox.querySelector('input[class="end-time-input"]').value;
+
+                // Ensure all inputs are provided
+                if (!dateInput || !startTimeInput || !endTimeInput) {
+                  alert('Please provide date, start time, and end time.');
+                  return;
+                }
+
+                // Combine date and time inputs into ISO 8601 format
+                const startTime = new Date(`${dateInput}T${startTimeInput}`).toISOString();
+                const endTime = new Date(`${dateInput}T${endTimeInput}`).toISOString();
+
+                // Retrieve the security token from sessionID
+                const securityToken = this.sessionID;
+
+                // Debugging logs
+                console.log('Sending POST request with:');
+                console.log({ securityToken, roomName, startTime, endTime });
+
+                // Send POST request to check availability
+                const response = await axios.post('http://25.59.250.215:9490/api/bookings/rooms/make-reservation', {
+                  securityToken,
+                  roomName,
+                  startTime,
+                  endTime,
+                }, {
+                  headers: {
+                    'Content-Type': 'application/json',
+                  }
+                });
+                const {responseStatus} = response.data;
+                console.log(responseStatus);
+
+                // Handle the response for reserving room button
+                if (responseStatus === 'SUCCESS') {
+                  alert(`Room reserved`);
+                } else if (responseStatus === 'ERROR') {
+                  alert(`Failed to reserve room.`);
+                }
+                else if (responseStatus === 'UNAVAILABLE'){
+                  alert('Room unavailable during selected time');
+                }
+              } catch (error) {
+                console.error('Error reserving room.', error);
+                alert('An error occurred while reserving the room.');
+              }
+            });
+          });
 
           // Add the box to the dashboard
           // Odd-indexed rooms go to the left (column 1), even-indexed to the right (column 2)

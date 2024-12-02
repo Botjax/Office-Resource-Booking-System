@@ -1,21 +1,28 @@
 <template>
   <div class="calendar">
     <div class="side-bar">
-      <img alt src="../assets/logo.png">
+      <img alt src="../assets/logo.png" />
       <p style="text-transform:uppercase">Menu</p>
       <div class="dashboard-item">
-        <img class="dashboard-icon" alt src="../assets/dash.svg">
-        <button class="dashboard-text" @click="$emit('navigate','Dashboard')">Dashboard</button>
+        <img class="dashboard-icon" alt src="../assets/dash.svg" />
+        <button class="dashboard-text" @click="$emit('navigate','Dashboard')">
+          Dashboard
+        </button>
       </div>
       <div class="book-item">
-        <img class="book-icon" alt src="../assets/book.svg">
-        <button class="book-text" @click="$emit('navigate','Bookings')">Bookings</button>
+        <img class="book-icon" alt src="../assets/book.svg" />
+        <button class="book-text" @click="$emit('navigate','Bookings')">
+          Bookings
+        </button>
       </div>
       <div class="calendar-item">
-        <img class="calendar-icon" alt src="../assets/calendar.svg">
-        <button class="calendar-text" @click="$emit('navigate','Calendar')">Calendar</button>
+        <img class="calendar-icon" alt src="../assets/calendar.svg" />
+        <button class="calendar-text" @click="$emit('navigate','Calendar')">
+          Calendar
+        </button>
       </div>
     </div>
+
     <div class="calendar-wrapper">
       <div class="calendar-header">
         <header class="calendar-header-text">Calendar</header>
@@ -23,28 +30,109 @@
           <button @click="$emit('navigate','Login')">Logout</button>
         </div>
       </div>
+
+      <!-- Calendar Grid -->
+      <div class="calendar-grid">
+        <div class="day-header" v-for="(day, index) in daysOfWeek" :key="index">
+          {{ day }}
+        </div>
+        <div
+            v-for="(day, index) in days"
+            :key="index"
+            class="calendar-day"
+            :class="{ 'empty-day': !day, 'filled-day': day }"
+        >
+          <div v-if="day">
+            <span class="date">{{ day.date }}</span>
+            <div class="events">
+              <span
+                  v-for="(event, eventIndex) in day.events"
+                  :key="eventIndex"
+                  class="event"
+                  :style="{ backgroundColor: event.color }"
+              >
+                {{ event.title }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
+
 <script>
 import { inject } from 'vue';
-export default {
-  name:'Calendar',
-  setup() {
-    const sessionID = inject('sessionID'); // Inject the sessionID ref
 
-    // Debugging log
+export default {
+  name: 'CalendarP',
+  setup() {
+    const sessionID = inject('sessionID');
     console.log('Injected sessionID in Calendar:', sessionID.value);
 
     return {
       sessionID,
     };
   },
+  data() {
+    return {
+      currentMonth: new Date().toLocaleString('default', { month: 'long' }),
+      currentYear: new Date().getFullYear(),
+      daysOfWeek: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      days: [], // Holds days and events
+      events: [
+        { date: '2024-11-01', title: 'Upcoming Reservation', color: '#ffcc00' },
+        { date: '2024-11-03', title: 'Room Reserved', color: '#00c853' },
+        { date: '2024-11-05', title: 'Room Reserved', color: '#00c853' },
+        // More events
+      ],
+    };
+  },
+  methods: {
+    generateCalendar() {
+      const today = new Date(this.currentYear, new Date().getMonth(), 1);
+      const firstDay = today.getDay() === 0 ? 7 : today.getDay(); // Start day (adjust for Monday start)
+      const totalDays = new Date(this.currentYear, today.getMonth() + 1, 0).getDate();
+
+      const days = [];
+      let dayCounter = 1;
+
+      for (let i = 0; i < 42; i++) {
+        if (i >= firstDay - 1 && dayCounter <= totalDays) {
+          const formattedDate = `${this.currentYear}-${String(
+              today.getMonth() + 1
+          ).padStart(2, '0')}-${String(dayCounter).padStart(2, '0')}`;
+          days.push({
+            date: dayCounter,
+            events: this.events.filter((event) => event.date === formattedDate),
+          });
+          dayCounter++;
+        } else {
+          days.push(null); // Empty days for padding
+        }
+      }
+      this.days = days;
+    },
+    prevMonth() {
+      const current = new Date(this.currentYear, new Date().getMonth() - 1, 1);
+      this.updateMonthYear(current);
+    },
+    nextMonth() {
+      const current = new Date(this.currentYear, new Date().getMonth() + 1, 1);
+      this.updateMonthYear(current);
+    },
+    updateMonthYear(date) {
+      this.currentMonth = date.toLocaleString('default', { month: 'long' });
+      this.currentYear = date.getFullYear();
+      this.generateCalendar();
+    },
+  },
   mounted() {
-    console.log('Session ID:', this.sessionID); // Log the current sessionID
+    this.generateCalendar();
   },
 };
 </script>
+
 <style scoped>
 .side-bar {
   min-width: 20vw;
@@ -205,4 +293,53 @@ p{
     font-size: 1rem;
   }
 }
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  padding: 1rem;
+}
+
+.day-header {
+  text-align: center;
+  font-weight: bold;
+}
+
+.calendar-day {
+  min-height: 100px;
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+  border-radius: 5px;
+  position: relative;
+}
+
+.empty-day {
+  background: transparent;
+}
+
+.date {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.events {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.event {
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 12px;
+  color: white;
+  text-align: center;
+}
+
 </style>
