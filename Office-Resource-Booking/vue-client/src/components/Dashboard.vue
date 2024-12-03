@@ -1,208 +1,174 @@
 <template>
   <div class="dashboard">
     <div class="side-bar">
-      <img alt src="../assets/logo.png">
-      <p style="text-transform:uppercase">Menu</p>
+      <img alt="Logo" src="../assets/logo.png" class="sidebar-logo">
+      <p class="menu-text">MENU</p>
+
       <div class="dashboard-item">
-        <img class="dashboard-icon" alt src="../assets/dash.svg">
-        <button class="dashboard-text" @click="$emit('navigate','Dashboard')">Dashboard</button>
+        <img class="dashboard-icon" alt="Dashboard Icon" src="../assets/dash.svg">
+        <button class="dashboard-text" @click="$emit('navigate', 'Dashboard')">Dashboard</button>
       </div>
+
       <div class="book-item">
-        <img class="book-icon" alt src="../assets/book.svg">
-        <button class="book-text" @click="$emit('navigate','Bookings')">Bookings</button>
+        <img class="book-icon" alt="Book Icon" src="../assets/book.svg">
+        <button class="book-text" @click="$emit('navigate', 'Bookings')">Bookings</button>
       </div>
+
       <div class="calendar-item">
-        <img class="calendar-icon" alt src="../assets/calendar.svg">
-        <button class="calendar-text" @click="$emit('navigate','Calendar')">Calendar</button>
-       </div>
+        <img class="calendar-icon" alt="Calendar Icon" src="../assets/calendar.svg">
+        <button class="calendar-text" @click="$emit('navigate', 'Calendar')">Calendar</button>
+      </div>
+
+      <!-- Footer Section -->
+      <div class="footer">
+        <ul class="footer-links">
+          <li><a @click="$emit('navigate', 'AboutUs')">About Us</a></li>
+          <li><a @click="$emit('navigate', 'Faq')">FAQ</a></li>
+        </ul>
+        <p>&copy; 2024 Resource Booking System. All Rights Reserved.</p>
+      </div>
     </div>
+
     <div class="dashboard-wrapper">
       <div class="dashboard-header">
         <header class="dashboard-text">Dashboard</header>
         <div class="logout-button">
-          <button @click="$emit('navigate','Login')">Logout</button>
+          <button @click="$emit('navigate', 'Login')">Logout</button>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <script>
-import { inject } from 'vue';
 export default {
-  name:'DashboardP',
-  setup() {
-    const sessionID = inject('sessionID'); // Inject the sessionID ref
-
-    // Debugging log
-    console.log('Injected sessionID in Dashboard:', sessionID.value);
-
-    return {
-      sessionID,
-    };
-  },
-  mounted() {
-    console.log('Session ID:', this.sessionID); // Log the current sessionID
-  },
+  name: 'DashboardP',
 };
 </script>
+
 <style scoped>
+/* General Sidebar Layout */
 .side-bar {
-  min-width: 20vw;
+  width: 20vw;
   height: 100vh;
-  position: relative;
-  background: #bbdefb; /*#3480ef,#29b6f6,#2c3e50*/
-  background-size: cover;
-}
-.side-bar button:hover{
-  color: #29b6f6;
-  transition-duration: 0.3s;
-}
-.side-bar button{
-  all: unset;
-  cursor: pointer;
-}
-:root {
-  --blue: #29b6f6;
-  --green: #9ccc65;
-  --purple: #BA68C8;
-  --cyan: #4dd0e1;
-  --black-dark: #101010;
-  --black-light: #2c3e50;
-  --soft-pink: #ffc1e3;
-  --soft-purple: #d1c4e9;
-  --soft-blue: #bbdefb;
-  --soft-yellow: #fff9c4;
-  --white: whitesmoke;
-  padding: 0;
-  margin: 0;
-  border: 0;
-}
-img{
-  width: 15vw;
-  height: auto;
-  display: block;
-  margin-top: 1.5vh;
-  margin-left: 2vw;
-}
-p{
-  margin-right: 65%;
-  margin-top: 15%;
-  display: block;
-  font-size: small;
-}
-.dashboard-item {
+  background: #bbdefb; /* Light blue */
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-left: 9%;
-  margin-top: 5%;
+  flex-direction: column;
+  justify-content: space-between; /* Ensures footer sticks to the bottom */
+  padding: 20px;
+  position: fixed; /* Sidebar fixed on the page */
+  top: 0;
+  left: 0;
+  box-sizing: border-box; /* Include padding in height calculation */
 }
-.dashboard-icon{
-  width: 2vw;
-  height: auto;
+
+/* Sidebar Logo */
+.sidebar-logo {
+  width: 80%;
+  margin: 0 auto;
   display: block;
-  margin: 0;
 }
-.dashboard-text {
-  font-size: 1rem;
-  color: #000000;
-  margin: 0;
-}
-.book-item{
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-left: 9%;
-  margin-top: 10%;
-}
-.book-icon{
-  width: 2vw;
-  height: auto;
-  display: block;
-  margin: 0;
-}
-.book-text{
-  font-size: 1rem;
-  color: #000000;
-  margin: 0;
-}
-.calendar-item{
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-left: 9%;
-  margin-top: 10%;
-}
-.calendar-icon{
-  width: 2vw;
-  height: auto;
-  display: block;
-  margin: 0;
-}
-.calendar-text{
-  font-size: 1rem;
-  color: #000000;
-  margin: 0;
-}
-.dashboard {
-  min-width: 35vh;
-  max-height: 100vh;
-  position: relative;
-  display: flex;
-}
-.dashboard-header {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  border-bottom: 1.5px solid #e8e3e3;
-  background-color: #ffffff;
-  color: #000000;
-  transition: background-color 0.3s ease;
-  max-height: 10vh;
-  min-width: 80vw;
-  display: flex;
-  margin-bottom: 5vh;
-}
-.logout-button{
-  margin-left: auto;
-  cursor: pointer;
-}
-.dashboard-text {
-  font-size: 1.5rem;
-  color: #000000;
+
+/* Sidebar Menu Text */
+.menu-text {
+  text-transform: uppercase;
   font-weight: bold;
-  margin-top: 1.5vh;
-  margin-left: 2vw;
+  text-align: center;
+  margin: 20px 0;
 }
-.dashboard-header button {
-  padding: 0.8rem 2rem;
+
+/* Sidebar Items */
+.dashboard-item, .book-item, .calendar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.dashboard-icon, .book-icon, .calendar-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.dashboard-text, .book-text, .calendar-text {
   font-size: 1rem;
-  background-color: #bbdefb;
-  color: #000000;
-  border: none;
-  border-radius: 25px;
+  color: #000;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-right: 2vw;
-  margin-top: 1.5vh;
+  background: none;
+  border: none;
+  outline: none;
 }
-.dashboard-header button:hover {
-  background-color: #29b6f6;
+
+.dashboard-text:hover, .book-text:hover, .calendar-text:hover {
+  color: #007bff;
 }
-@media (max-width: 768px) {
-  .dashboard-header {
-    flex-direction: column;
-    text-align: center;
-    padding: 1rem;
-  }
 
-  .dashboard-text {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-  }
+/* Footer Section */
+.footer {
+  text-align: center;
+  margin-top: auto; /* Pushes footer to the bottom of the sidebar */
+}
 
-  .dashboard-header button {
-    width: 100%;
-    font-size: 1rem;
-  }
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.footer-links li {
+  margin: 0;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #000;
+}
+
+.footer-links a:hover {
+  color: #007bff;
+}
+
+.footer p {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 10px;
+}
+
+/* Dashboard Wrapper */
+.dashboard {
+  display: flex;
+  margin-left: 20vw; /* Matches the sidebar width */
+  width: calc(100% - 20vw); /* Ensures main content fits next to sidebar */
+  flex-direction: column;
+}
+
+.dashboard-header {
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #000;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logout-button button {
+  background: #bbdefb;
+  color: #000;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.logout-button button:hover {
+  background: #007bff;
+  color: #fff;
 }
 </style>
