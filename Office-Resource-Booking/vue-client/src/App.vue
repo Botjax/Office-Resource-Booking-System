@@ -12,6 +12,8 @@ import ForgotPassword from './components/forgotPassword.vue';
 import CreateAccount from './components/createAccount.vue';
 import Bookings from './components/Bookings.vue';
 import Calendar from './components/Calendar.vue';
+import Faq from './components/FAQ.vue'; // Import FAQ component
+import AboutUs from './components/aboutUs.vue'; // Import About Us component
 
 export default {
   name: 'App',
@@ -22,6 +24,8 @@ export default {
     CreateAccount,
     Bookings,
     Calendar,
+    Faq, // Register FAQ component
+    AboutUs, // Register About Us component
   },
   setup() {
     // Define sessionID as a reactive ref
@@ -47,7 +51,6 @@ export default {
   data() {
     return {
       currentComponent: 'Login', // Default to the Login component
-      // currentComponent: 'Dashboard',
     };
   },
   methods: {
@@ -55,12 +58,11 @@ export default {
       this.currentComponent = 'Dashboard'; // Switch to Dashboard when login is successful
     },
     navigate(component) {
-      this.currentComponent = component;
+      this.currentComponent = component; // Dynamically set the current component
     },
   },
 };
 </script>
-
 
 <style>
 #app {
