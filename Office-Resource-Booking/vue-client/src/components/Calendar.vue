@@ -87,7 +87,9 @@ export default {
       currentYear: new Date().getFullYear(),
       daysOfWeek: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       days: [],
+
       events: [],
+
     };
   },
   methods: {
@@ -169,13 +171,16 @@ export default {
     }
   },
   mounted() {
+
     this.fetchData();
+
     this.currentMonthIndex = new Date().getMonth();
     this.updateMonth();
     this.generateCalendar();
   },
 };
 </script>
+
 
 <style scoped>
 .side-bar {
@@ -391,6 +396,7 @@ p{
   font-size: 1.2rem;
   font-weight: bold;
 }
+
 .calendar-grid {
   flex: 1;
   display: grid;
@@ -425,8 +431,10 @@ p{
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
+
   margin-bottom: 0;
   margin-top: 3vh;
+
 }
 .event {
   padding: 2px 5px;
@@ -435,7 +443,9 @@ p{
   color: white;
   text-align: center;
   background: #29b6f6;
+
   margin-left: 0.5vw;
   margin-bottom: 0;
+
 }
 </style>

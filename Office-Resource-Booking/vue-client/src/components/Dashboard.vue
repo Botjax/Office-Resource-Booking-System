@@ -10,16 +10,31 @@
         </button>
       </div>
       <div class="book-item">
+
         <img class="book-icon" alt src="../assets/book.svg" />
         <button class="book-text" @click="$emit('navigate','Bookings')">
           Bookings
         </button>
+
       </div>
       <div class="calendar-item">
-        <img class="calendar-icon" alt src="../assets/calendar.svg" />
-        <button class="calendar-text" @click="$emit('navigate','Calendar')">
-          Calendar
-        </button>
+
+
+        <img class="calendar-icon" alt="Calendar Icon" src="../assets/calendar.svg">
+        <button class="calendar-text" @click="$emit('navigate', 'Calendar')">Calendar</button>
+      </div>
+
+      <!-- Footer Section -->
+      <div class="footer">
+        <ul class="footer-links">
+          <li><a @click="$emit('navigate', 'AboutUs')">About Us</a></li>
+          <li><a @click="$emit('navigate', 'Faq')">FAQ</a></li>
+        </ul>
+        <p>&copy; 2024 Resource Booking System. All Rights Reserved.</p>
+
+
+
+
       </div>
     </div>
 
@@ -35,6 +50,7 @@
         <!-- Greeting Section -->
         <div class="greeting-section">
           <div>
+
             <h1 class="greeting">
               Hello <span class="username">{{ userName }}</span>
             </h1>
@@ -49,11 +65,13 @@
       <div class="calendar-widget-container">
         <CalendarWidget />
       </div>
+
     </div>
   </div>
 </template>
 
 <script>
+
 import { inject } from "vue";
 import axios from 'axios';
 import CalendarWidget from "../components/CalendarWidget.vue";
@@ -98,10 +116,11 @@ export default {
 </script>
 
 <style scoped>
-/* Your existing styles remain unchanged */
+
 .side-bar {
   min-width: 20vw;
   height: 100vh;
+
   position: relative;
   background: #bbdefb;
   background-size: cover;
@@ -134,6 +153,7 @@ export default {
 img {
   width: 15vw;
   height: auto;
+
   display: block;
   margin-top: 1.5vh;
   margin-left: 2vw;
@@ -151,28 +171,34 @@ p {
   margin-left: 9%;
   margin-top: 5%;
 }
+
 .dashboard-icon {
   width: 2vw;
   height: auto;
   display: block;
   margin: 0;
+
 }
 .dashboard-text {
   font-size: 1rem;
+
   color: #000000;
   margin: 0;
 }
 .book-item {
+
   display: flex;
   align-items: center;
   gap: 0.5rem;
   margin-left: 9%;
   margin-top: 10%;
 }
+
 .book-icon {
   width: 2vw;
   height: auto;
   display: block;
+
   margin: 0;
 }
 .book-text {
@@ -216,8 +242,10 @@ p {
   display: flex;
   margin-bottom: 5vh;
 }
+
 .logout-button {
   margin-left: auto;
+
   cursor: pointer;
 }
 .dashboard-text {
@@ -299,4 +327,6 @@ p {
     flex-direction: column;
   }
 }
+
 </style>
+
