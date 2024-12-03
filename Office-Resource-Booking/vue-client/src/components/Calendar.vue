@@ -31,12 +31,7 @@
         </div>
       </div>
 
-      <div class="calendar-navigation">
-        <button class="nav-button" @click="prevMonth">←</button>
-        <span class="current-month">{{ currentMonth }} {{ currentYear }}</span>
-        <button class="nav-button" @click="nextMonth">→</button>
-      </div>
-
+      <!-- Calendar Grid -->
       <div class="calendar-grid">
         <div class="day-header" v-for="(day, index) in daysOfWeek" :key="index">
           {{ day }}
@@ -68,7 +63,6 @@
 
 <script>
 import { inject } from 'vue';
-import axios from 'axios';
 
 export default {
   name: 'CalendarP',
@@ -82,29 +76,31 @@ export default {
   },
   data() {
     return {
-      currentMonth: '',
-      currentMonthIndex: 0,
+      currentMonth: new Date().toLocaleString('default', { month: 'long' }),
       currentYear: new Date().getFullYear(),
       daysOfWeek: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-      days: [],
-      events: [],
+      days: [], // Holds days and events
+      events: [
+        { date: '2024-11-01', title: 'Upcoming Reservation', color: '#ffcc00' },
+        { date: '2024-11-03', title: 'Room Reserved', color: '#00c853' },
+        { date: '2024-11-05', title: 'Room Reserved', color: '#00c853' },
+        // More events
+      ],
     };
   },
   methods: {
     generateCalendar() {
-      const firstDay = new Date(this.currentYear, this.currentMonthIndex, 1).getDay();
-      const totalDays = new Date(this.currentYear, this.currentMonthIndex + 1, 0).getDate();
-
-      // Adjust firstDay to account for Monday as the first day of the week
-      const adjustedFirstDay = (firstDay === 0) ? 6 : firstDay - 1;
+      const today = new Date(this.currentYear, new Date().getMonth(), 1);
+      const firstDay = today.getDay() === 0 ? 7 : today.getDay(); // Start day (adjust for Monday start)
+      const totalDays = new Date(this.currentYear, today.getMonth() + 1, 0).getDate();
 
       const days = [];
       let dayCounter = 1;
 
       for (let i = 0; i < 42; i++) {
-        if (i >= adjustedFirstDay && dayCounter <= totalDays) {
+        if (i >= firstDay - 1 && dayCounter <= totalDays) {
           const formattedDate = `${this.currentYear}-${String(
-              this.currentMonthIndex + 1
+              today.getMonth() + 1
           ).padStart(2, '0')}-${String(dayCounter).padStart(2, '0')}`;
           days.push({
             date: dayCounter,
@@ -112,66 +108,26 @@ export default {
           });
           dayCounter++;
         } else {
-          days.push(null);
+          days.push(null); // Empty days for padding
         }
       }
       this.days = days;
     },
     prevMonth() {
-      if (this.currentMonthIndex === 0) {
-        this.currentMonthIndex = 11;
-        this.currentYear -= 1;
-      } else {
-        this.currentMonthIndex -= 1;
-      }
-      this.updateMonth();
+      const current = new Date(this.currentYear, new Date().getMonth() - 1, 1);
+      this.updateMonthYear(current);
     },
     nextMonth() {
-      if (this.currentMonthIndex === 11) {
-        this.currentMonthIndex = 0;
-        this.currentYear += 1;
-      } else {
-        this.currentMonthIndex += 1;
-      }
-      this.updateMonth();
+      const current = new Date(this.currentYear, new Date().getMonth() + 1, 1);
+      this.updateMonthYear(current);
     },
-    updateMonth() {
-      this.currentMonth = new Date(this.currentYear, this.currentMonthIndex).toLocaleString('default', { month: 'long' });
+    updateMonthYear(date) {
+      this.currentMonth = date.toLocaleString('default', { month: 'long' });
+      this.currentYear = date.getFullYear();
       this.generateCalendar();
     },
-    async fetchData() {
-      try {
-        // Ensure the sessionID is available
-        if (!this.sessionID) {
-          console.error('Session ID is missing!');
-          return;
-        }
-
-        const response = await axios.post(
-            `http://25.59.250.215:9490/api/calendar/events`,
-            {
-              token: this.sessionID, // Pass the token from sessionID
-            }
-        );
-
-        // Process response data
-        const data = response.data;
-        this.events = data.map((reservation) => ({
-          title: reservation.room,
-          date: reservation.time,
-          color: reservation.color,
-        }));
-
-        this.generateCalendar();
-      } catch (error) {
-        console.error("Failed to fetch reservations:", error);
-      }
-    }
   },
   mounted() {
-    this.fetchData();
-    this.currentMonthIndex = new Date().getMonth();
-    this.updateMonth();
     this.generateCalendar();
   },
 };
@@ -337,113 +293,53 @@ p{
     font-size: 1rem;
   }
 }
-.calendar {
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.side-bar {
-  width: 20%;
-  min-width: 200px;
-  background: #bbdefb;
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.calendar-wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background-color: #ffffff;
-  overflow: hidden;
-}
-
-.calendar-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
-  background-color: #ffffff;
-  border-bottom: 1px solid #ddd;
-  z-index: 10;
-  margin: 0;
-}
-.calendar-navigation {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  padding: 1rem 0;
-  border-bottom: 1px solid #ddd;
-  background-color: #f9f9f9;
-}
-
-.nav-button {
-  padding: 0.5rem 1rem;
-  background-color: #29b6f6;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.nav-button:hover {
-  background-color: #1e88e5;
-}
-
-.current-month {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
 .calendar-grid {
-  flex: 1;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 10px;
   padding: 1rem;
-  overflow-y: auto;
 }
+
 .day-header {
   text-align: center;
   font-weight: bold;
 }
+
 .calendar-day {
   min-height: 100px;
   border: 1px solid #ddd;
   background: #f9f9f9;
   border-radius: 5px;
   position: relative;
-  overflow: auto;
 }
+
 .empty-day {
   background: transparent;
 }
+
 .date {
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: 10px;
+  left: 10px;
   font-size: 14px;
   font-weight: bold;
 }
+
 .events {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 5px;
-  margin-bottom: 0;
-  margin-top: 3vh;
 }
+
 .event {
   padding: 2px 5px;
   border-radius: 3px;
   font-size: 12px;
   color: white;
   text-align: center;
-  background: #29b6f6;
-  margin-left: 0.5vw;
-  margin-bottom: 0;
 }
+
 </style>
