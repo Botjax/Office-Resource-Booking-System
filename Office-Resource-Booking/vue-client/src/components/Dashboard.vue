@@ -252,7 +252,7 @@ p {
 }
 .subtitle {
   font-size: 1.2rem;
-  color: #29b6f6;
+  color: #0c87bf;
   margin: 0;
   display: flex;
   flex-direction: column;

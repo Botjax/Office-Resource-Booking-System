@@ -18,6 +18,8 @@
         <div class="reservation-details">
           <div class="room">{{ reservation.room }}</div>
           <div class="time">{{ reservation.time }}</div>
+          <div class="capacity">Capacity: {{reservation.capacity}}</div>
+          <div class="description">Room Description: {{reservation.description}}</div>
         </div>
         <div
             class="reservation-indicator"
@@ -74,6 +76,8 @@ export default {
           room: reservation.room,
           time: this.formatTime(reservation.time),
           color: reservation.color,
+          capacity: reservation.capacity,
+          description: reservation.description,
         }));
       } catch (error) {
         console.error("Failed to fetch reservations:", error);
@@ -148,7 +152,6 @@ export default {
   margin-bottom: 0.5rem;
   color: #ffffff;
 }
-
 .reservation-item {
   display: flex;
   align-items: center;
@@ -170,7 +173,7 @@ export default {
   font-weight: bold;
 }
 
-.reservation-details .time {
+.reservation-details .time, .reservation-details .capacity {
   font-size: 0.9rem;
   color: #ddd;
 }
