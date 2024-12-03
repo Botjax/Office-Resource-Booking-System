@@ -68,6 +68,7 @@
 
 <script>
 import { inject } from 'vue';
+import axios from 'axios';
 
 export default {
   name: 'CalendarP',
@@ -86,11 +87,9 @@ export default {
       currentYear: new Date().getFullYear(),
       daysOfWeek: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       days: [],
-      events: [
-        { date: '2024-12-01', title: 'Upcoming Reservation', color: '#ffcc00' },
-        { date: '2024-12-03', title: 'Room Reserved', color: '#00c853' },
-        { date: '2024-12-05', title: 'Room Reserved', color: '#00c853' },
-      ],
+
+      events: [],
+
     };
   },
   methods: {
@@ -142,8 +141,39 @@ export default {
       this.currentMonth = new Date(this.currentYear, this.currentMonthIndex).toLocaleString('default', { month: 'long' });
       this.generateCalendar();
     },
+    async fetchData() {
+      try {
+        // Ensure the sessionID is available
+        if (!this.sessionID) {
+          console.error('Session ID is missing!');
+          return;
+        }
+
+        const response = await axios.post(
+            `http://25.59.250.215:9490/api/calendar/events`,
+            {
+              token: this.sessionID, // Pass the token from sessionID
+            }
+        );
+
+        // Process response data
+        const data = response.data;
+        this.events = data.map((reservation) => ({
+          title: reservation.room,
+          date: reservation.time,
+          color: reservation.color,
+        }));
+
+        this.generateCalendar();
+      } catch (error) {
+        console.error("Failed to fetch reservations:", error);
+      }
+    }
   },
   mounted() {
+
+    this.fetchData();
+
     this.currentMonthIndex = new Date().getMonth();
     this.updateMonth();
     this.generateCalendar();
@@ -157,14 +187,14 @@ export default {
   min-width: 20vw;
   height: 100vh;
   position: relative;
-  background: #bbdefb; /*#3480ef,#29b6f6,#2c3e50*/
+  background: #bbdefb;
   background-size: cover;
 }
-.side-bar button:hover{
+.side-bar button:hover {
   color: #29b6f6;
   transition-duration: 0.3s;
 }
-.side-bar button{
+.side-bar button {
   all: unset;
   cursor: pointer;
 }
@@ -318,15 +348,7 @@ p{
   overflow: hidden;
 }
 
-.side-bar {
-  width: 20%;
-  min-width: 200px;
-  background: #bbdefb;
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
+
 
 .calendar-wrapper {
   flex: 1;
@@ -383,23 +405,21 @@ p{
   padding: 1rem;
   overflow-y: auto;
 }
-
 .day-header {
   text-align: center;
   font-weight: bold;
 }
-
 .calendar-day {
   min-height: 100px;
   border: 1px solid #ddd;
   background: #f9f9f9;
   border-radius: 5px;
   position: relative;
+  overflow: auto;
 }
 .empty-day {
   background: transparent;
 }
-
 .date {
   position: absolute;
   top: 5px;
@@ -411,7 +431,10 @@ p{
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
-  margin: auto;
+
+  margin-bottom: 0;
+  margin-top: 3vh;
+
 }
 .event {
   padding: 2px 5px;
@@ -420,7 +443,9 @@ p{
   color: white;
   text-align: center;
   background: #29b6f6;
-  margin-top: 5vh;
+
   margin-left: 0.5vw;
+  margin-bottom: 0;
+
 }
 </style>
