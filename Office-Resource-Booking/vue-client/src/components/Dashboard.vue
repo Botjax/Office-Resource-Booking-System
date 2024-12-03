@@ -9,12 +9,12 @@
           Dashboard
         </button>
       </div>
-
       <div class="book-item">
         <img class="book-icon" alt src="../assets/book.svg" />
-        <button class="book-text" @click="$emit('navigate','Bookings')">Bookings</button>
+        <button class="book-text" @click="$emit('navigate','Bookings')">
+          Bookings
+        </button>
       </div>
-
       <div class="calendar-item">
         <img class="calendar-icon" alt src="../assets/calendar.svg" />
         <button class="calendar-text" @click="$emit('navigate','Calendar')">
@@ -27,7 +27,7 @@
       <div class="dashboard-header">
         <header class="dashboard-text">Dashboard</header>
         <div class="logout-button">
-          <button @click="$emit('navigate', 'Login')">Logout</button>
+          <button @click="$emit('navigate','Login')">Logout</button>
         </div>
       </div>
       <!-- Greeting and Calendar -->
@@ -40,15 +40,15 @@
             </h1>
           </div>
           <div>
-          <p class="subtitle">Here is your daily summary</p>
+            <p class="subtitle">Here is your daily summary</p>
           </div>
         </div>
-       </div>
+      </div>
 
       <!-- Calendar Widget -->
-        <div class="calendar-widget-container">
-          <CalendarWidget />
-        </div>
+      <div class="calendar-widget-container">
+        <CalendarWidget />
+      </div>
     </div>
   </div>
 </template>
@@ -98,12 +98,14 @@ export default {
 </script>
 
 <style scoped>
+/* Your existing styles remain unchanged */
 .side-bar {
-  width: 20vw;
+  min-width: 20vw;
   height: 100vh;
   position: relative;
   background: #bbdefb;
   background-size: cover;
+  padding: 0;
 }
 .side-bar button:hover {
   color: #29b6f6;
@@ -133,6 +135,8 @@ img {
   width: 15vw;
   height: auto;
   display: block;
+  margin-top: 1.5vh;
+  margin-left: 2vw;
 }
 p {
   margin-right: 65%;
@@ -140,13 +144,12 @@ p {
   display: block;
   font-size: small;
 }
-
-/* Sidebar Items */
-.dashboard-item, .book-item, .calendar-item {
+.dashboard-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin: 10px 0;
+  gap: 0.5rem;
+  margin-left: 9%;
+  margin-top: 5%;
 }
 .dashboard-icon {
   width: 2vw;
@@ -154,8 +157,7 @@ p {
   display: block;
   margin: 0;
 }
-
-.dashboard-text, .book-text, .calendar-text {
+.dashboard-text {
   font-size: 1rem;
   color: #000000;
   margin: 0;
@@ -180,8 +182,10 @@ p {
 }
 .calendar-item {
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 9%;
+  margin-top: 10%;
 }
 .calendar-icon {
   width: 2vw;
@@ -194,41 +198,34 @@ p {
   color: #000000;
   margin: 0;
 }
-
-.footer p {
-  font-size: 0.9rem;
-  color: #555;
-  margin-top: 10px;
-}
-
-/* Dashboard Wrapper */
 .dashboard {
+  min-width: 35vh;
+  max-height: 100vh;
+  position: relative;
   display: flex;
-  margin-left: 20vw; /* Matches the sidebar width */
-  width: calc(100% - 20vw); /* Ensures main content fits next to sidebar */
-  flex-direction: column;
 }
-
 .dashboard-header {
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #000;
-  background: #fff;
-  border-bottom: 1px solid #ddd;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-bottom: 1.5px solid #e8e3e3;
+  background-color: #ffffff;
+  color: #000000;
+  transition: background-color 0.3s ease;
+  max-height: 10vh;
+  min-width: 80vw;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  margin-bottom: 5vh;
 }
 .logout-button {
   margin-left: auto;
   cursor: pointer;
-  font-size: 1rem;
 }
-
-.logout-button button:hover {
-  background: #007bff;
-  color: #fff;
+.dashboard-text {
+  font-size: 1.5rem;
+  color: #000000;
+  font-weight: bold;
+  margin-top: 1.5vh;
+  margin-left: 2vw;
 }
 .dashboard-header button {
   padding: 0.8rem 2rem;

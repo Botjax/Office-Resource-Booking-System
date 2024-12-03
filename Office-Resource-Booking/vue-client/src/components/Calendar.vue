@@ -182,14 +182,14 @@ export default {
   min-width: 20vw;
   height: 100vh;
   position: relative;
-  background: #bbdefb; /*#3480ef,#29b6f6,#2c3e50*/
+  background: #bbdefb;
   background-size: cover;
 }
-.side-bar button:hover{
+.side-bar button:hover {
   color: #29b6f6;
   transition-duration: 0.3s;
 }
-.side-bar button{
+.side-bar button {
   all: unset;
   cursor: pointer;
 }
@@ -343,15 +343,7 @@ p{
   overflow: hidden;
 }
 
-.side-bar {
-  width: 20%;
-  min-width: 200px;
-  background: #bbdefb;
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
+
 
 .calendar-wrapper {
   flex: 1;
