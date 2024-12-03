@@ -12,8 +12,7 @@
 
       <div class="book-item">
         <img class="book-icon" alt src="../assets/book.svg" />
-        <button class="book-text" @click="$emit('navigate','Bookings')">
-          Bookings
+        <button class="book-text" @click="$emit('navigate','Bookings')">Bookings</button>
       </div>
 
       <div class="calendar-item">
