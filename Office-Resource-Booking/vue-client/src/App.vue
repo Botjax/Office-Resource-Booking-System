@@ -50,7 +50,7 @@ export default {
   },
   data() {
     return {
-      currentComponent: 'Login', // Default to the Login component
+      currentComponent: 'Dashboard', // Default component
     };
   },
   methods: {
