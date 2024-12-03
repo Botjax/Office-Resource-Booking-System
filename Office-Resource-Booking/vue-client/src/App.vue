@@ -46,8 +46,8 @@ export default {
   },
   data() {
     return {
-      // currentComponent: 'Login', // Default to the Login component
-      currentComponent: 'Dashboard',
+      currentComponent: 'Login', // Default to the Login component
+      // currentComponent: 'Dashboard',
     };
   },
   methods: {

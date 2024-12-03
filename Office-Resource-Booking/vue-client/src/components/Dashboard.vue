@@ -1,21 +1,28 @@
 <template>
   <div class="dashboard">
     <div class="side-bar">
-      <img alt src="../assets/logo.png">
+      <img alt src="../assets/logo.png" />
       <p style="text-transform:uppercase">Menu</p>
       <div class="dashboard-item">
-        <img class="dashboard-icon" alt src="../assets/dash.svg">
-        <button class="dashboard-text" @click="$emit('navigate','Dashboard')">Dashboard</button>
+        <img class="dashboard-icon" alt src="../assets/dash.svg" />
+        <button class="dashboard-text" @click="$emit('navigate','Dashboard')">
+          Dashboard
+        </button>
       </div>
       <div class="book-item">
-        <img class="book-icon" alt src="../assets/book.svg">
-        <button class="book-text" @click="$emit('navigate','Bookings')">Bookings</button>
+        <img class="book-icon" alt src="../assets/book.svg" />
+        <button class="book-text" @click="$emit('navigate','Bookings')">
+          Bookings
+        </button>
       </div>
       <div class="calendar-item">
-        <img class="calendar-icon" alt src="../assets/calendar.svg">
-        <button class="calendar-text" @click="$emit('navigate','Calendar')">Calendar</button>
-       </div>
+        <img class="calendar-icon" alt src="../assets/calendar.svg" />
+        <button class="calendar-text" @click="$emit('navigate','Calendar')">
+          Calendar
+        </button>
+      </div>
     </div>
+
     <div class="dashboard-wrapper">
       <div class="dashboard-header">
         <header class="dashboard-text">Dashboard</header>
@@ -23,41 +30,86 @@
           <button @click="$emit('navigate','Login')">Logout</button>
         </div>
       </div>
+      <!-- Greeting and Calendar -->
+      <div class="main-content">
+        <!-- Greeting Section -->
+        <div class="greeting-section">
+          <div>
+          <p class="subtitle">It's time to book an office space...</p>
+          </div>
+          <div>
+          <h1 class="greeting">
+            Hello <span class="username">{{ userName }}</span>
+          </h1>
+          </div>
+        </div>
+       </div>
+      <!-- Calendar Widget -->
+        <div class="calendar-widget-container">
+          <CalendarWidget />
+        </div>
     </div>
   </div>
 </template>
-<script>
-import { inject } from 'vue';
-export default {
-  name:'DashboardP',
-  setup() {
-    const sessionID = inject('sessionID'); // Inject the sessionID ref
 
-    // Debugging log
-    console.log('Injected sessionID in Dashboard:', sessionID.value);
+<script>
+import { inject } from "vue";
+import axios from 'axios';
+import CalendarWidget from "../components/CalendarWidget.vue";
+
+export default {
+  name: "DashboardP",
+  components: {CalendarWidget},
+  setup() {
+    const sessionID = inject("sessionID"); // Inject the sessionID ref
 
     return {
       sessionID,
     };
   },
+  data() {
+    return {
+      userName: "",
+    };
+  },
+  methods: {
+    async fetchName() {
+      try {
+        if (!this.sessionID) {
+          console.error('Token error');
+          return;
+        }
+        const response = await axios.post(`http://25.59.250.215:9490/api/dashboard/welcome`,
+            {
+              token: this.sessionID,
+            }
+        );
+        this.userName = response.data;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  },
   mounted() {
-    console.log('Session ID:', this.sessionID); // Log the current sessionID
+    this.fetchName();
   },
 };
 </script>
+
 <style scoped>
+/* Your existing styles remain unchanged */
 .side-bar {
   min-width: 20vw;
   height: 100vh;
   position: relative;
-  background: #bbdefb; /*#3480ef,#29b6f6,#2c3e50*/
+  background: #bbdefb;
   background-size: cover;
 }
-.side-bar button:hover{
+.side-bar button:hover {
   color: #29b6f6;
   transition-duration: 0.3s;
 }
-.side-bar button{
+.side-bar button {
   all: unset;
   cursor: pointer;
 }
@@ -77,14 +129,14 @@ export default {
   margin: 0;
   border: 0;
 }
-img{
+img {
   width: 15vw;
   height: auto;
   display: block;
   margin-top: 1.5vh;
   margin-left: 2vw;
 }
-p{
+p {
   margin-right: 65%;
   margin-top: 15%;
   display: block;
@@ -97,7 +149,7 @@ p{
   margin-left: 9%;
   margin-top: 5%;
 }
-.dashboard-icon{
+.dashboard-icon {
   width: 2vw;
   height: auto;
   display: block;
@@ -108,38 +160,38 @@ p{
   color: #000000;
   margin: 0;
 }
-.book-item{
+.book-item {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   margin-left: 9%;
   margin-top: 10%;
 }
-.book-icon{
+.book-icon {
   width: 2vw;
   height: auto;
   display: block;
   margin: 0;
 }
-.book-text{
+.book-text {
   font-size: 1rem;
   color: #000000;
   margin: 0;
 }
-.calendar-item{
+.calendar-item {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   margin-left: 9%;
   margin-top: 10%;
 }
-.calendar-icon{
+.calendar-icon {
   width: 2vw;
   height: auto;
   display: block;
   margin: 0;
 }
-.calendar-text{
+.calendar-text {
   font-size: 1rem;
   color: #000000;
   margin: 0;
@@ -162,7 +214,7 @@ p{
   display: flex;
   margin-bottom: 5vh;
 }
-.logout-button{
+.logout-button {
   margin-left: auto;
   cursor: pointer;
 }
@@ -188,21 +240,62 @@ p{
 .dashboard-header button:hover {
   background-color: #29b6f6;
 }
+/* Greeting section */
+.greeting-section {
+  display: block;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-left: 5vh;
+  margin-right: 5vw;
+  margin-bottom: 2.5vw;
+  align-items: center;
+}
+.subtitle {
+  font-size: 1.2rem;
+  color: #29b6f6;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.greeting {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #34495e;
+  margin: 0;
+  display: table-row;
+  flex-direction: column;
+  align-content: flex-start;
+}
+.username {
+  color: #3480ef;
+}
+/* Calendar Widget */
+.calendar-widget-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 50%;
+}
+/* Responsive Design */
 @media (max-width: 768px) {
-  .dashboard-header {
-    flex-direction: column;
+  .main-content {
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .greeting-section,
+  .calendar-widget-container {
+    max-width: 100%;
     text-align: center;
-    padding: 1rem;
   }
 
-  .dashboard-text {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .dashboard-header button {
-    width: 100%;
-    font-size: 1rem;
+  .calendar-widget-container {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
   }
 }
 </style>
+
