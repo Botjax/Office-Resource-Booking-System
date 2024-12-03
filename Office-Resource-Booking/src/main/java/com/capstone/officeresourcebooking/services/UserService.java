@@ -69,6 +69,10 @@ public class UserService {
         return sessions.containsKey(token);
     }
 
+    public String getUserEmail(String token) {
+        return sessions.get(token).getSessionEmail();
+    }
+
     public int getUserIdByToken(String token) {
         return userRepository.findIdByEmail(sessions.get(token).getSessionEmail()).get().intValue();
     }

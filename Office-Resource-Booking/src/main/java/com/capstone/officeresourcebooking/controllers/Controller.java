@@ -63,6 +63,26 @@ public class Controller {
         return null;
     }
 
+    @PostMapping("dashboard/welcome")
+    @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
+    public String findEmail(@RequestBody TokenResponse tokenID) {
+        return userService.getUserEmail(tokenID.getToken());
+    }
+
+    @PostMapping("dashboard/event-list")
+    @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
+    public List<Event> findEvents(@RequestBody TokenResponse tokenID) {
+        Long userID = (long) userService.getUserIdByToken(tokenID.getToken());
+        return reservationService.getUserEvents(userID);
+    }
+
+    @PostMapping("calendar/events")
+    @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
+    public List<Event> findMonthlyEvents(@RequestBody TokenResponse tokenID) {
+        Long userID = (long) userService.getUserIdByToken(tokenID.getToken());
+        return reservationService.getCalendarView(userID);
+    }
+
     @GetMapping("/security/mak/encrypt/{password}") // Encrypt a password, useful for the DBA to insert an admin user into the database with an encrypted password
     @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
     public String encryptPassword(@PathVariable String password) {

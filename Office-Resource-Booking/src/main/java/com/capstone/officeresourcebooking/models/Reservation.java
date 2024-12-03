@@ -1,11 +1,13 @@
 package com.capstone.officeresourcebooking.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "reservations")
+@Getter
 public class Reservation {
 
     @jakarta.persistence.Id
@@ -33,9 +35,9 @@ public class Reservation {
     private LocalDateTime createdAt;
 
     public enum ReservationStatus {
-        pending,
-        confirmed,
-        cancelled,
+        PENDING,
+        CONFIRMED,
+        CANCELLED,
     }
 
     public Reservation() {}
@@ -51,7 +53,7 @@ public class Reservation {
     public Reservation(LocalDateTime startTime, LocalDateTime endTime, String roomName, int resourceId, int userId) {
         this.startTime = startTime;
         this.endTime = endTime;
-        this.status = ReservationStatus.pending; // Default status
+        this.status = ReservationStatus.PENDING; // Default status
         this.createdAt = LocalDateTime.now();    // Automatically set createdAt
         this.resourceId = resourceId;
         this.userId = userId;

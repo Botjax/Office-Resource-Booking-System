@@ -2,9 +2,9 @@ package com.capstone.officeresourcebooking.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 
 @Entity
+@Getter
 @Table(name = "resources")
 public class Resource {
 
@@ -31,10 +31,8 @@ public class Resource {
     @Column(name = "is_available", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 1")
     private boolean isAvailable;
 
-    // Enum for ResourceType
     public enum ResourceType {
-        ROOM,
-        EQUIPMENT,
-        VEHICLE
+        MEETING_ROOM,
+        WORKSPACE,
     }
 }

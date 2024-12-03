@@ -30,4 +30,8 @@ public class ResourceService {
     public int findResourceByName(String name) {
         return resourceRepository.findResourceIdByName(name).get();
     }
+
+    public String getResourceNameById(Long resourceId) {
+        return resourceRepository.findResourceNameById(resourceId);
+    }
 }
