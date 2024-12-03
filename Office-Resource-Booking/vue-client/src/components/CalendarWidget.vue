@@ -17,8 +17,7 @@
       >
         <div class="reservation-details">
           <div class="room">{{ reservation.room }}</div>
-          <div class="time">{{ reservation.time }}</div>
-          <div class="capacity">Capacity: {{reservation.capacity}}</div>
+          <div class="time">{{ reservation.time }} | Capacity: {{reservation.capacity}}</div>
           <div class="description">Room Description: {{reservation.description}}</div>
         </div>
         <div

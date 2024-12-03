@@ -35,15 +35,16 @@
         <!-- Greeting Section -->
         <div class="greeting-section">
           <div>
-          <p class="subtitle">It's time to book an office space...</p>
+            <h1 class="greeting">
+              Hello <span class="username">{{ userName }}</span>
+            </h1>
           </div>
           <div>
-          <h1 class="greeting">
-            Hello <span class="username">{{ userName }}</span>
-          </h1>
+          <p class="subtitle">Here is your daily summary</p>
           </div>
         </div>
        </div>
+
       <!-- Calendar Widget -->
         <div class="calendar-widget-container">
           <CalendarWidget />
@@ -298,4 +299,3 @@ p {
   }
 }
 </style>
-
