@@ -3,7 +3,7 @@
     <!-- Sidebar -->
     <div class="side-bar">
       <img alt="Logo" src="../assets/logo.png" class="sidebar-logo">
-      <p class="menu-text">MENU</p>
+      <p class="menu-text" style="margin-top: 15%;">MENU</p>
 
       <div class="dashboard-item">
         <img class="dashboard-icon" alt="Dashboard Icon" src="../assets/dash.svg">
@@ -23,7 +23,7 @@
       <!-- Footer Section -->
       <footer class="side-footer">
         <ul class="footer-links">
-          <li><a @click="$emit('navigate', 'AboutUs')">About Us</a></li>
+          <li><a @click="$emit('navigate', 'AboutUs')">About Us</a></li> |
           <li><a @click="$emit('navigate', 'Faq')">FAQ</a></li>
         </ul>
         <p>&copy; 2024 Resource Booking System. All Rights Reserved.</p>
@@ -75,65 +75,122 @@ export default {
   min-height: 100vh;
 }
 
-/* Sidebar */
 .side-bar {
-  width: 300px;
-  background-color: #bbdefb;
+  min-width: 20vw;
   height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-}
 
-.sidebar-logo {
-  width: 80%;
-  margin-bottom: 20px;
+  position: relative;
+  background: #bbdefb;
+  background-size: cover;
+  padding: 0;
 }
-
-.menu-text {
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-  text-align: center;
+.side-bar button:hover {
+  color: #29b6f6;
+  transition-duration: 0.3s;
 }
-
-.dashboard-item, .book-item, .calendar-item {
-  display: flex;
-  align-items: center;
-  margin-top: 15px;
-  width: 100%;
-}
-
-.dashboard-icon, .book-icon, .calendar-icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
-}
-
-.dashboard-text, .book-text, .calendar-text {
-  font-size: 1rem;
-  background: none;
-  border: none;
+.side-bar button {
+  all: unset;
   cursor: pointer;
-  color: #000;
-  text-align: left;
-  width: 100%;
-  outline: none;
+}
+:root {
+  --blue: #29b6f6;
+  --green: #9ccc65;
+  --purple: #BA68C8;
+  --cyan: #4dd0e1;
+  --black-dark: #101010;
+  --black-light: #2c3e50;
+  --soft-pink: #ffc1e3;
+  --soft-purple: #d1c4e9;
+  --soft-blue: #bbdefb;
+  --soft-yellow: #fff9c4;
+  --white: whitesmoke;
+  padding: 0;
+  margin: 0;
+  border: 0;
 }
 
-.dashboard-text:hover, .book-text:hover, .calendar-text:hover {
-  color: #007bff;
+
+
+img {
+  width: 15vw;
+  height: auto;
+
+  display: block;
+  margin-top: 1.5vh;
+  margin-left: 2vw;
+}
+p {
+
+  display: block;
+  font-size: small;
+}
+.dashboard-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 9%;
+  margin-top: 5%;
+}
+
+.dashboard-icon {
+  width: 2vw;
+  height: auto;
+  display: block;
+  margin: 0;
+
+}
+.dashboard-text {
+  font-size: 1rem;
+
+  color: #000000;
+  margin: 0;
+}
+.book-item {
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 9%;
+  margin-top: 10%;
+}
+
+.book-icon {
+  width: 2vw;
+  height: auto;
+  display: block;
+
+  margin: 0;
+}
+.book-text {
+  font-size: 1rem;
+  color: #000000;
+  margin: 0;
+}
+.calendar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 9%;
+  margin-top: 10%;
+}
+.calendar-icon {
+  width: 2vw;
+  height: auto;
+  display: block;
+  margin: 0;
+}
+.calendar-text {
+  font-size: 1rem;
+  color: #000000;
+  margin: 0;
 }
 
 /* Sidebar Footer */
 .side-footer {
-  margin-top: auto;
+  margin-top: 390px;
   text-align: center;
   font-size: 0.9rem;
+  cursor: pointer;
 }
 
 .side-footer ul {
@@ -182,8 +239,8 @@ export default {
 
 /* About Content */
 .about-content {
-  margin-left: 320px;
-  padding: 28px 20px;
+
+  padding: 50px 20px;
   font-family: Arial, sans-serif;
 }
 

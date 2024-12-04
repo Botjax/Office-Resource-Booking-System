@@ -2,7 +2,7 @@
   <div class="calendar">
     <div class="side-bar">
       <img alt src="../assets/logo.png" />
-      <p style="text-transform:uppercase">Menu</p>
+      <p style="margin-top: 15%;">MENU</p>
       <div class="dashboard-item">
         <img class="dashboard-icon" alt src="../assets/dash.svg" />
         <button class="dashboard-text" @click="$emit('navigate','Dashboard')">
@@ -21,6 +21,14 @@
           Calendar
         </button>
       </div>
+      <!-- Footer Section -->
+      <footer class="side-footer">
+        <ul class="footer-links">
+          <li><a @click="$emit('navigate', 'AboutUs')">About Us</a></li> |
+          <li><a @click="$emit('navigate', 'Faq')">FAQ</a></li>
+        </ul>
+        <p >&copy; 2024 Resource Booking System. All Rights Reserved.</p>
+      </footer>
     </div>
 
     <div class="calendar-wrapper">
@@ -187,14 +195,14 @@ export default {
   min-width: 20vw;
   height: 100vh;
   position: relative;
-  background: #bbdefb;
+  background: #bbdefb; /*#3480ef,#29b6f6,#2c3e50*/
   background-size: cover;
 }
-.side-bar button:hover {
+.side-bar button:hover{
   color: #29b6f6;
   transition-duration: 0.3s;
 }
-.side-bar button {
+.side-bar button{
   all: unset;
   cursor: pointer;
 }
@@ -222,19 +230,19 @@ img{
   margin-left: 2vw;
 }
 p{
-  margin-right: 65%;
-  margin-top: 15%;
+
+
   display: block;
   font-size: small;
 }
-.side-bar .dashboard-item {
+.dashboard-item {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   margin-left: 9%;
   margin-top: 5%;
 }
-.side-bar .dashboard-icon{
+.dashboard-icon{
   width: 2vw;
   height: auto;
   display: block;
@@ -263,12 +271,6 @@ p{
   color: #000000;
   margin: 0;
 }
-.calendar {
-  min-width: 35vh;
-  max-height: 100vh;
-  position: relative;
-  display: flex;
-}
 .calendar-item{
   display: flex;
   align-items: center;
@@ -287,6 +289,36 @@ p{
   color: #000000;
   margin: 0;
 }
+
+/* Sidebar Footer */
+.side-footer {
+  margin-top: 390px;
+  text-align: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.side-footer ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.side-footer ul li {
+  margin: 0;
+}
+
+.side-footer ul li a {
+  text-decoration: none;
+  color: #000;
+}
+
+.side-footer ul li a:hover {
+  color: #007bff;
+}
+
 .calendar-header {
   padding: 0.5rem 1rem;
   font-size: 1rem;

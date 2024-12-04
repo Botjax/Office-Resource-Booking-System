@@ -2,7 +2,7 @@
   <div class="dashboard">
     <div class="side-bar">
       <img alt src="../assets/logo.png" />
-      <p style="text-transform:uppercase">Menu</p>
+      <p style="margin-top: 15%; ">MENU</p>
       <div class="dashboard-item">
         <img class="dashboard-icon" alt src="../assets/dash.svg" />
         <button class="dashboard-text" @click="$emit('navigate','Dashboard')">
@@ -25,9 +25,9 @@
       </div>
 
       <!-- Footer Section -->
-      <div class="footer">
+      <div class="side-footer">
         <ul class="footer-links">
-          <li><a @click="$emit('navigate', 'AboutUs')">About Us</a></li>
+          <li><a @click="$emit('navigate', 'AboutUs')">About Us</a></li> |
           <li><a @click="$emit('navigate', 'Faq')">FAQ</a></li>
         </ul>
         <p>&copy; 2024 Resource Booking System. All Rights Reserved.</p>
@@ -150,6 +150,9 @@ export default {
   margin: 0;
   border: 0;
 }
+
+
+
 img {
   width: 15vw;
   height: auto;
@@ -159,8 +162,7 @@ img {
   margin-left: 2vw;
 }
 p {
-  margin-right: 65%;
-  margin-top: 15%;
+
   display: block;
   font-size: small;
 }
@@ -224,6 +226,36 @@ p {
   color: #000000;
   margin: 0;
 }
+
+/* Sidebar Footer */
+.side-footer {
+  margin-top: 390px;
+  text-align: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.side-footer ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.side-footer ul li {
+  margin: 0;
+}
+
+.side-footer ul li a {
+  text-decoration: none;
+  color: #000;
+}
+
+.side-footer ul li a:hover {
+  color: #007bff;
+}
+
 .dashboard {
   min-width: 35vh;
   max-height: 100vh;

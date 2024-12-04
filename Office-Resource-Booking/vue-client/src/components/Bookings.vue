@@ -2,7 +2,7 @@
   <div class="bookings">
     <div class="side-bar">
       <img alt src="../assets/logo.png">
-      <p style="text-transform:uppercase">Menu</p>
+      <p style="margin-top: 15%;">MENU</p>
       <div class="dashboard-item">
       <img class="dashboard-icon" alt src="../assets/dash.svg">
       <button class="dashboard-text" @click="$emit('navigate','Dashboard')">Dashboard</button>
@@ -15,6 +15,14 @@
         <img class="calendar-icon" alt src="../assets/calendar.svg">
         <button class="calendar-text" @click="$emit('navigate','Calendar')">Calendar</button>
       </div>
+      <!-- Footer Section -->
+      <footer class="side-footer">
+        <ul class="footer-links">
+          <li><a @click="$emit('navigate', 'AboutUs')">About Us</a></li> |
+          <li><a @click="$emit('navigate', 'Faq')">FAQ</a></li>
+        </ul>
+        <p >&copy; 2024 Resource Booking System. All Rights Reserved.</p>
+      </footer>
     </div>
     <div class="bookings-wrapper">
       <div class="bookings-header">
@@ -421,12 +429,12 @@ export default {
 </style>
 <style scoped>
 .side-bar {
-    min-width: 20vw;
-    height: 100vh;
-    position: relative;
-    background: #bbdefb; /*#3480ef,#29b6f6,#2c3e50*/
-    background-size: cover;
-  }
+  min-width: 20vw;
+  height: 100vh;
+  position: relative;
+  background: #bbdefb; /*#3480ef,#29b6f6,#2c3e50*/
+  background-size: cover;
+}
 .side-bar button:hover{
   color: #29b6f6;
   transition-duration: 0.3s;
@@ -436,20 +444,20 @@ export default {
   cursor: pointer;
 }
 :root {
-    --blue: #29b6f6;
-    --green: #9ccc65;
-    --purple: #BA68C8;
-    --cyan: #4dd0e1;
-    --black-dark: #101010;
-    --black-light: #2c3e50;
-    --soft-pink: #ffc1e3;
-    --soft-purple: #d1c4e9;
-    --soft-blue: #bbdefb;
-    --soft-yellow: #fff9c4;
-    --white: whitesmoke;
-    padding: 0;
-    margin: 0;
-    border: 0;
+  --blue: #29b6f6;
+  --green: #9ccc65;
+  --purple: #BA68C8;
+  --cyan: #4dd0e1;
+  --black-dark: #101010;
+  --black-light: #2c3e50;
+  --soft-pink: #ffc1e3;
+  --soft-purple: #d1c4e9;
+  --soft-blue: #bbdefb;
+  --soft-yellow: #fff9c4;
+  --white: whitesmoke;
+  padding: 0;
+  margin: 0;
+  border: 0;
 }
 img{
   width: 15vw;
@@ -459,8 +467,8 @@ img{
   margin-left: 2vw;
 }
 p{
-  margin-right: 65%;
-  margin-top: 15%;
+
+
   display: block;
   font-size: small;
 }
@@ -518,6 +526,36 @@ p{
   color: #000000;
   margin: 0;
 }
+
+/* Sidebar Footer */
+.side-footer {
+  margin-top: 390px;
+  text-align: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.side-footer ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.side-footer ul li {
+  margin: 0;
+}
+
+.side-footer ul li a {
+  text-decoration: none;
+  color: #000;
+}
+
+.side-footer ul li a:hover {
+  color: #007bff;
+}
+
 .bookings {
   min-width: 35vh;
   max-height: 100vh;
