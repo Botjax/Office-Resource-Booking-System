@@ -173,6 +173,7 @@ img{
   margin-bottom: 20px;
   color: #40414a;
 }
+
 .createAccount-input-wrapper {
   display: flex;
   flex-direction: column;
