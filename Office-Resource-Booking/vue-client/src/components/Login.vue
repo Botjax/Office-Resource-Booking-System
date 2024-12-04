@@ -18,9 +18,7 @@
               <label for="password">Password:</label>
             </div>
             <div class="input-field">
-              <button class="submission-button" type="submit">
-                <span class="submission-text">Login</span>
-              </button>
+              <button class="submission-button" type="submit"><span class="submission-text">Login</span></button>
             </div>
           </div>
         </form>
@@ -37,14 +35,22 @@
 
 <script>
 import axios from 'axios';
+import { inject } from 'vue';
 
 export default {
   name: "LoginP",
+  setup() {
+    const setSessionID = inject('setSessionID'); // Inject the global sessionID updater
+    return {
+      setSessionID,
+    };
+  },
   data() {
     return {
       email: '',
       password: '',
       errorMessage: '',
+      loginStatus: null,
     };
   },
   methods: {
@@ -56,16 +62,21 @@ export default {
         }, {
           headers: {
             'Content-Type': 'application/json',
-
           }
         });
 
-        if (response.data) {
-          this.errorMessage = '';
-          this.$emit('login-success');
+        const { status, sessionId } = response.data;
 
-        } else {
+        if (status === 'SUCCESS') {
+          this.loginStatus = 'Success';
+          console.log('Login successful, sessionID:', sessionId); // Debugging log
+          this.setSessionID(sessionId); // Update global sessionID
+          this.$emit('login-success'); // Notify parent of success
+        } else if (status === 'INVALID_CREDENTIALS') {
           this.errorMessage = 'Invalid email or password';
+        } else if (status === 'FAILURE') {
+          this.loginStatus = 'Failure';
+          this.errorMessage = 'Login Failed. Please Try Again';
         }
       } catch (error) {
         this.errorMessage = 'An error occurred. Please try again.';
@@ -74,7 +85,10 @@ export default {
     },
   },
 };
+
+
 </script>
+
 
 <style>
 * {
@@ -218,7 +232,7 @@ img{
   /* colors: #bbdefb, #3480ef,#29b6f6,#2c3e50*/
   background-image: linear-gradient(144deg,#bbdefb, #3480ef 50%,#29b6f6);
   border: 0;
-  border-radius: 8px;
+  border-radius: 25px;
   box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
   box-sizing: border-box;
   color: #FFFFFF;
@@ -244,7 +258,7 @@ img{
 .submission-button span {
   background-color: rgb(5, 6, 45);
   padding: 5px 10px;
-  border-radius: 6px;
+  border-radius: 25px;
   width: 100%;
   height:100%;
   transition: 300ms;
@@ -265,3 +279,4 @@ img{
   padding: 0 20% 0 20%;
 }
 </style>
+
