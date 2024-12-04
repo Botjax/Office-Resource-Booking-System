@@ -35,16 +35,22 @@
 
 <script>
 import axios from 'axios';
+import { inject } from 'vue';
 
 export default {
   name: "LoginP",
+  setup() {
+    const setSessionID = inject('setSessionID'); // Inject the global sessionID updater
+    return {
+      setSessionID,
+    };
+  },
   data() {
     return {
       email: '',
       password: '',
       errorMessage: '',
       loginStatus: null,
-      sessionID: null,
     };
   },
   methods: {
@@ -58,17 +64,17 @@ export default {
             'Content-Type': 'application/json',
           }
         });
-        const{loginStatus, sessionID} = response.data;
 
-        if (loginStatus === 'SUCCESS') {
+        const { status, sessionId } = response.data;
+
+        if (status === 'SUCCESS') {
           this.loginStatus = 'Success';
-          this.sessionID = sessionID;
-          this.$emit('login-success');
-        } else if (loginStatus === 'INVALID_CREDENTIALS') {
+          console.log('Login successful, sessionID:', sessionId); // Debugging log
+          this.setSessionID(sessionId); // Update global sessionID
+          this.$emit('login-success'); // Notify parent of success
+        } else if (status === 'INVALID_CREDENTIALS') {
           this.errorMessage = 'Invalid email or password';
-        }
-        else if (loginStatus === 'FAILURE'){
-          this.sessionID = null;
+        } else if (status === 'FAILURE') {
           this.loginStatus = 'Failure';
           this.errorMessage = 'Login Failed. Please Try Again';
         }
@@ -79,7 +85,10 @@ export default {
     },
   },
 };
+
+
 </script>
+
 
 <style>
 * {
@@ -93,6 +102,8 @@ html,body {
   height: 100%;
   overflow: hidden;
 }
+</style>
+<style scoped>
 .login {
   display: flex;
   flex-direction: row;
@@ -101,6 +112,7 @@ html,body {
   height: 100vh;
   text-align: center;
   color: #000000;
+
 }
 
 .login-box {
@@ -217,10 +229,10 @@ img{
 }
 .submission-button {
   align-items: center;
-  /*#bbdefb, #3480ef,#29b6f6,#2c3e50*/
+  /* colors: #bbdefb, #3480ef,#29b6f6,#2c3e50*/
   background-image: linear-gradient(144deg,#bbdefb, #3480ef 50%,#29b6f6);
   border: 0;
-  border-radius: 8px;
+  border-radius: 25px;
   box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
   box-sizing: border-box;
   color: #FFFFFF;
@@ -239,17 +251,14 @@ img{
   white-space: nowrap;
   cursor: pointer;
   height: 40px;
+  margin-left: 22px;
 }
-.submission-button:active,
-.submission-button:hover {
-  outline: 0;
-  border: none;
-}
+
 
 .submission-button span {
   background-color: rgb(5, 6, 45);
   padding: 5px 10px;
-  border-radius: 6px;
+  border-radius: 25px;
   width: 100%;
   height:100%;
   transition: 300ms;
@@ -270,3 +279,4 @@ img{
   padding: 0 20% 0 20%;
 }
 </style>
+

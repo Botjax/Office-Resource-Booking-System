@@ -18,8 +18,8 @@ import axios from "axios";
 
 export default {
   name: "ForgotPassword",
-  data(){
-    return{
+  data() {
+    return {
       email: '',
       message: '',
     };
@@ -51,4 +51,6 @@ export default {
 
 <style scoped>
 
+
 </style>
+
